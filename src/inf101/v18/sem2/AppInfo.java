@@ -23,8 +23,8 @@ public class AppInfo {
 	/**
 	 * List of extra credits (e.g. for media sources)
 	 */
-	public static final List<String> APP_EXTRA_CREDITS = Arrays.asList(//
-			/* "Graphics by Foo Bar" */
+	public static final List<String> APP_EXTRA_CREDITS = Arrays.asList(
+			"HAL 9000 red eye graphic by Cryteria@Wikimedia (CC BY 3.0)"
 			);
 	/**
 	 * Help text. Could be used for an in-game help page, perhaps.

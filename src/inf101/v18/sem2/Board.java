@@ -28,4 +28,8 @@ public class Board {
         return height;
     }
 
+    public Slot getSlot(int x, int y){
+        return grid.get(x,y);
+    }
+
 }

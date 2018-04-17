@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Game game;
     private Stage stage;
-    private final double SF = 1;
+    private final double SF = 1.5; // Scaling factor
+    // Window dimensions
     private double width = 1050*SF;
     private double height = 900*SF;
 
@@ -40,8 +41,8 @@ public class Main extends Application {
         Group root = new Group();
         Scene titleScene = new Scene(root,width,height);
         Button btnMultiplayer = new Button("Start 2-player game");
-        btnMultiplayer.setScaleX(2*SF);
-        btnMultiplayer.setScaleY(2*SF);
+        btnMultiplayer.setScaleX(1.5*SF);
+        btnMultiplayer.setScaleY(1.5*SF);
         btnMultiplayer.setLayoutX(.375*width);
         btnMultiplayer.setLayoutY(height/2);
         btnMultiplayer.setMinWidth(width/4);
@@ -51,8 +52,8 @@ public class Main extends Application {
 
 
         Button btnAI = new Button("Start game vs HAL 9000");
-        btnAI.setScaleX(2*SF);
-        btnAI.setScaleY(2*SF);
+        btnAI.setScaleX(1.5*SF);
+        btnAI.setScaleY(1.5*SF);
         btnAI.setLayoutX(.375*width);
         btnAI.setLayoutY(3*height/4);
         btnAI.setMinWidth(width/ 4);
@@ -88,22 +89,23 @@ public class Main extends Application {
 
         Text info = new Text("Player " + n);
         info.setTextAlignment(TextAlignment.CENTER);
-        info.setScaleX(4*SF);
-        info.setScaleY(4*SF);
+        info.setScaleX(3*SF);
+        info.setScaleY(3*SF);
         info.setLayoutX(.375*width);
         info.setLayoutY(3*height/8);
         info.setWrappingWidth(width/4);
 
-        TextField nameInput = new TextField("Enter player name");
-        nameInput.setScaleX(2*SF);
-        nameInput.setScaleY(2*SF);
+        TextField nameInput = new TextField();
+        nameInput.setPromptText("Enter player name");
+        nameInput.setScaleX(1.5*SF);
+        nameInput.setScaleY(1.5*SF);
         nameInput.setLayoutX(.375*width);
         nameInput.setLayoutY(height/2);
         nameInput.setMinWidth(width/4);
 
         Button btnSubmit = new Button("Submit");
-        btnSubmit.setScaleX(2*SF);
-        btnSubmit.setScaleY(2*SF);
+        btnSubmit.setScaleX(1.5*SF);
+        btnSubmit.setScaleY(1.5*SF);
         btnSubmit.setLayoutX(.375*width);
         btnSubmit.setLayoutY(3*height/4);
         btnSubmit.setMinWidth(width/ 4);

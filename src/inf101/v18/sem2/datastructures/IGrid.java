@@ -1,4 +1,4 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.datastructures;
 
 public interface IGrid<T> {
     int getWidth();

@@ -1,10 +1,15 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.datastructures;
 
+import inf101.v18.sem2.Disc;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Slot {
+    private static Map<String, Image> discImages = getDiscImages();
     private Disc disc;
     private int x;
     private int y;
@@ -48,9 +53,6 @@ public class Slot {
                 case YELLOW:
                     drawColor(context, width, height, Color.YELLOW);
                     break;
-                case BLUE:
-                    drawColor(context, width, height, Color.BLUE);
-                    break;
                 case BLACK:
                     drawColor(context, width, height, Color.BLACK);
                     break;
@@ -64,7 +66,12 @@ public class Slot {
     }
 
     private void drawImage(GraphicsContext context, double width, double height, String filename){
-        Image discImage = new Image("inf101/v18/sem2/images/" + filename + ".png");
-        context.drawImage(discImage, width*(x+1),height*(y+1),.8*width,.8*height);
+        context.drawImage(discImages.get(filename), width*(x+.1),height*(y+.1),.8*width,.8*height);
+    }
+
+    private static Map<String, Image> getDiscImages(){
+        Map<String, Image> discImages = new HashMap<>();
+        discImages.put("HAL9000", new Image("inf101/v18/sem2/images/HAL9000.png"));
+        return discImages;
     }
 }

@@ -69,11 +69,14 @@ public class Main extends Application {
         Group root = new Group();
         Scene gameScene = new Scene(root,width,height);
         Canvas canvas = new Canvas(width,height);
-
-        gameScene.setOnKeyPressed(e -> game.keyPressed(e.getCode()));
-
         GraphicsContext context = canvas.getGraphicsContext2D();
-        game.draw(context, width, height);
+
+        gameScene.setOnKeyPressed(e -> {
+            game.keyPressed(e.getCode());
+            game.draw(context, width, height);
+        });
+
+        game.draw(context,width,height);
 
         root.getChildren().add(canvas);
 
@@ -110,12 +113,13 @@ public class Main extends Application {
         btnSubmit.setLayoutY(3*height/4);
         btnSubmit.setMinWidth(width/ 4);
         btnSubmit.setOnAction(actionEvent -> {
-            Player p = new Player(nameInput.getText(), n == 1 ? Disc.GREEN : Disc.BLUE);
+            if(nameInput.getText().equals("")) return;
+            Player p = new Player(nameInput.getText(), n == 1 ? Disc.GREEN : Disc.YELLOW);
             p.setName(nameInput.getCharacters().toString());
-            game.setPlayer(n, p);
+            game.addPlayer(p);
             if(n == 1){
                 if(vsAI){
-                    game.setPlayer(2, new AI(game));
+                    game.addPlayer(new AI(game));
                     stage.setScene(gameScene());
                 }else {
                     stage.setScene(getPlayerScene(vsAI, 2));

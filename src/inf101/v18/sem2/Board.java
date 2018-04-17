@@ -3,12 +3,12 @@ package inf101.v18.sem2;
 public class Board {
     private int width;
     private int height;
-    private Grid grid;
+    private Grid<Slot> grid;
 
     public Board(int width, int height){
         this.width = width;
         this.height = height;
-        grid = new Grid(width,height);
+        grid = new Grid<>(width,height);
         initGrid();
     }
     

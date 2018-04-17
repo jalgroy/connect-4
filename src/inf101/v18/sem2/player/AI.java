@@ -1,15 +1,21 @@
 package inf101.v18.sem2.player;
 
 import inf101.v18.sem2.Board;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
+import inf101.v18.sem2.Disc;
+import inf101.v18.sem2.Game;
 
 public class AI implements IPlayer {
     private String name = "HAL 9000";
-    private Image discImage;
+    private Disc disc;
+    private Game game;
 
-    public AI(){
-        discImage = new Image("inf101/v18/sem2/images/HAL9000.png");
+    public AI(Game game){
+        this.game = game;
+        disc = Disc.HAL;
+    }
+
+    public int getMove(){
+        return 0;
     }
 
     @Override
@@ -23,9 +29,7 @@ public class AI implements IPlayer {
     }
 
     @Override
-    public void drawDisc(GraphicsContext context, double x, double y, double width, double height) {
-        context.save();
-        context.drawImage(discImage, x,y,width,height);
-        context.restore();
+    public Disc getDisc() {
+        return disc;
     }
 }

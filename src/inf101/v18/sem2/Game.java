@@ -29,28 +29,30 @@ public class Game {
     }
 
     public void keyPressed(KeyCode key){
-        switch (key) {
-            case DIGIT1:
-                drop(0);
-                break;
-            case DIGIT2:
-                drop(1);
-                break;
-            case DIGIT3:
-                drop(2);
-                break;
-            case DIGIT4:
-                drop(3);
-                break;
-            case DIGIT5:
-                drop(4);
-                break;
-            case DIGIT6:
-                drop(5);
-                break;
-            case DIGIT7:
-                drop(6);
-                break;
+        if(gameState == GameState.PLAYING) {
+            switch (key) {
+                case DIGIT1:
+                    drop(0);
+                    break;
+                case DIGIT2:
+                    drop(1);
+                    break;
+                case DIGIT3:
+                    drop(2);
+                    break;
+                case DIGIT4:
+                    drop(3);
+                    break;
+                case DIGIT5:
+                    drop(4);
+                    break;
+                case DIGIT6:
+                    drop(5);
+                    break;
+                case DIGIT7:
+                    drop(6);
+                    break;
+            }
         }
     }
 
@@ -69,24 +71,33 @@ public class Game {
     }
 
     private void nextTurn(){
-        turn++;
-        IPlayer nextPlayer = players.get(turn % 2);
-        if(nextPlayer instanceof AI){
-            int column = ((AI)nextPlayer).getMove();
-            board.drop(column, nextPlayer.getDisc());
-            nextTurn();
+        if(Rules.isWin(board)){
+            if(turn % 2 == 0){
+                gameState = GameState.ONE_WON;
+            } else {
+                gameState = GameState.TWO_WON;
+            }
+            System.out.println(gameState);
+        } else {
+            turn++;
+            IPlayer nextPlayer = players.get(turn % 2);
+            if (nextPlayer instanceof AI) {
+                int column = ((AI) nextPlayer).getMove();
+                board.drop(column, nextPlayer.getDisc());
+                nextTurn();
+            }
         }
     }
 
     public void draw(GraphicsContext context, double width, double height){
-        // TODO: Expand UI
+        // TODO: Expand UI, falling animation somehow
         context.save();
-        context.setFill(Color.BLUE);
-        context.fillRect(0,0,width,height);
+        context.setFill(Color.DEEPSKYBLUE);
+        context.fillRect(0, 0, width, height);
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();
-                board.getSlot(i,j).draw(context, width/board.getWidth(), height/board.getHeight());
+                board.getSlot(i, j).draw(context, width / board.getWidth(), height / board.getHeight());
                 context.restore();
             }
         }

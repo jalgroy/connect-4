@@ -35,11 +35,6 @@ public class AI implements IPlayer {
     }
 
     @Override
-    public void drop(Board board) {
-
-    }
-
-    @Override
     public Disc getDisc() {
         return disc;
     }

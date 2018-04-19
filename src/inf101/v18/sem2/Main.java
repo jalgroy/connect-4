@@ -11,17 +11,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
     private Game game;
     private Stage stage;
-    private final double SF = 1.5; // Scaling factor
+    private final double SF = 1; // Scaling factor
     // Window dimensions
-    private double width = 1050*SF;
-    private double height = 900*SF;
+    private double width = 1550*SF;
+    private double height = 950*SF;
 
     public static void main(String[] args) {
         launch(args);
@@ -68,17 +71,48 @@ public class Main extends Application {
     private Scene gameScene(){
         Group root = new Group();
         Scene gameScene = new Scene(root,width,height);
-        Canvas canvas = new Canvas(width,height);
+        double gameWidth = width - 500*SF;
+        double gameHeight = height - 50*SF;
+
+        Canvas canvas = new Canvas(gameWidth,gameHeight);
+        canvas.setLayoutY(height - gameHeight);
         GraphicsContext context = canvas.getGraphicsContext2D();
 
         gameScene.setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());
-            game.draw(context, width, height);
+            game.draw(context,gameWidth,gameHeight);
         });
 
-        game.draw(context,width,height);
+        game.draw(context,gameWidth,gameHeight);
 
         root.getChildren().add(canvas);
+
+        for (int i = 1; i <= 7; i++) {
+            Rectangle r = new Rectangle(gameWidth/7, height-gameHeight);
+            r.setX((i-1)*gameWidth/7);
+            r.setY(0);
+            if(i % 2 == 0){
+                r.setFill(Color.LIGHTGRAY);
+            } else {
+                r.setFill(Color.WHITE.darker());
+            }
+
+            Text num = new Text();
+            num.setX(i*gameWidth/7 - gameWidth/14);
+            num.setY((height-gameHeight)/2);
+            num.setText(Integer.toString(i));
+            num.setFill(Color.BLACK);
+            num.setScaleX(3*SF);
+            num.setScaleY(3*SF);
+
+            root.getChildren().addAll(r, num);
+        }
+
+        Rectangle sideBar = new Rectangle(width - gameWidth, height);
+        sideBar.setX(gameWidth);
+        sideBar.setFill(Color.LIGHTGRAY);
+
+        root.getChildren().add(sideBar);
 
         return gameScene;
     }

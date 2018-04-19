@@ -16,12 +16,14 @@ public class Game {
     private int turn;
     private final int COLUMNS = 7;
     private final int ROWS = 6;
+    private List<Integer> history;
 
     public Game(){
         board = new Board(COLUMNS, ROWS);
         gameState = GameState.PLAYING;
         turn = 0;
         players = new ArrayList<>();
+        history = new ArrayList<>();
     }
 
     public void addPlayer(IPlayer player){
@@ -63,6 +65,7 @@ public class Game {
         IPlayer player = players.get(turn % 2);
         if(!(player instanceof AI)){
             if(board.drop(column, player.getDisc())){
+                history.add(column);
                 nextTurn();
             } else {
                 System.out.println("Invalid drop.");
@@ -71,18 +74,21 @@ public class Game {
     }
 
     private void nextTurn(){
-        if(Rules.isWin(board)){
+        if(Rules.isWin(board, history.get(history.size()-1))){
             if(turn % 2 == 0){
                 gameState = GameState.ONE_WON;
             } else {
                 gameState = GameState.TWO_WON;
             }
             System.out.println(gameState);
-        } else {
+        } else if(Rules.isDraw(board, history.get(history.size()-1))) {
+            gameState = GameState.DRAW;
+        } else{
             turn++;
             IPlayer nextPlayer = players.get(turn % 2);
             if (nextPlayer instanceof AI) {
                 int column = ((AI) nextPlayer).getMove();
+                history.add(column);
                 board.drop(column, nextPlayer.getDisc());
                 nextTurn();
             }
@@ -110,5 +116,9 @@ public class Game {
 
     public Board getBoard() {
         return board;
+    }
+
+    public GameState getState(){
+        return gameState;
     }
 }

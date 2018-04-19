@@ -9,8 +9,8 @@ public class Rules {
      * @param board
      * @return true if the board has 4 connected pieces
      */
-    public static boolean isWin(Board board){
-        // TODO (maybe): Simplify this... (Implement directions?)
+    public static boolean isWin(Board board, int lastMove){
+        // TODO: Use lastMove to check for win
 
         // Horizontal
         Disc last = null;
@@ -88,13 +88,16 @@ public class Rules {
                 if(current == null) continue;
                 boolean fourEquals = true;
                 for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(i,j+i).getDisc() != current){
+                    if(board.getSlot(i+k,j+i+k).getDisc() != current){
                         fourEquals = false;
                         break;
                     }
 
                 }
-                if(fourEquals) return true;
+                if(fourEquals){
+                    System.out.println(i+","+j);
+                    return true;
+                }
             }
 
             // Right -> down-left
@@ -103,12 +106,15 @@ public class Rules {
                 if(current == null) continue;
                 boolean fourEquals = true;
                 for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(board.getWidth()-1-i-k, j+i).getDisc() != current){
+                    if(board.getSlot(board.getWidth()-1-i-k, j+i+k).getDisc() != current){
                         fourEquals = false;
                         break;
                     }
                 }
-                if(fourEquals) return true;
+                if(fourEquals){
+                    System.out.println((board.getWidth()-1-i)+","+(j+i));
+                    return true;
+                }
 
             }
             
@@ -117,10 +123,10 @@ public class Rules {
         return false;
     }
 
-    public boolean isDraw(Board board){
+    public static boolean isDraw(Board board, int lastMove){
         for (int i = 0; i < board.getWidth(); i++) {
             if(board.getSlot(i,0).isEmpty()) return false;
         }
-        return !isWin(board);
+        return !isWin(board, lastMove);
     }
 }

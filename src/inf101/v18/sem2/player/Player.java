@@ -26,8 +26,4 @@ public class Player implements IPlayer {
         this.name = name;
     }
 
-    @Override
-    public void drop(Board board) {
-
-    }
 }

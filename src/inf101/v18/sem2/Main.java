@@ -110,13 +110,7 @@ public class Main extends Application {
             root.getChildren().addAll(r, num);
         }
 
-        Rectangle sideBar = new Rectangle(width - gameWidth, height);
-        sideBar.setX(gameWidth);
-        sideBar.setFill(Color.LIGHTGRAY);
-
         updateSidebar(root,width-gameWidth, height);
-
-        root.getChildren().addAll(sideBar);
 
         return gameScene;
     }

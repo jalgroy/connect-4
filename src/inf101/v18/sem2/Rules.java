@@ -10,114 +10,71 @@ public class Rules {
      * @return true if the board has 4 connected pieces
      */
     public static boolean isWin(Board board, int lastMove){
-        // TODO: Use lastMove to check for win
+        int x = lastMove;
+        int y = 0;
+        for (int i = 0; i < board.getHeight(); i++) {
+            if(!board.getSlot(x,i).isEmpty()){
+                y = i;
+                break;
+            }
+        }
+
+        Disc disc = board.getSlot(x,y).getDisc();
 
         // Horizontal
-        Disc last = null;
-        for (int i = 0; i < board.getHeight(); i++) {
-            for (int j = 3; j < board.getWidth(); j++) {
-                Disc current = board.getSlot(j,i).getDisc();
-                if(current == null) continue;
-                boolean fourEquals = true;
-                for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(j-k, i).getDisc() != current){
-                        fourEquals = false;
-                        break;
-                    }
+        int inARow = 1;
+        for (int dx = -3; dx <= 3; dx++) {
+            if(dx == 0) continue;
+            if(x+dx >= 0 && x+dx < board.getWidth()){
+                if(board.getSlot(x+dx,y).getDisc() == disc){
+                    inARow++;
+                } else {
+                    inARow = 1;
                 }
-                if(fourEquals) return true;
+                if(inARow == 4) return true;
             }
         }
 
         // Vertical
-        for (int i = 0; i < board.getWidth(); i++) {
-            for (int j = 3; j < board.getHeight(); j++) {
-                Disc current = board.getSlot(i,j).getDisc();
-                if(current == null) continue;
-                boolean fourEquals = true;
-                for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(i, j-k).getDisc() != current){
-                        fourEquals = false;
-                        break;
-                    }
+        inARow = 1;
+        for (int dy = -3; dy <= 3; dy++) {
+            if(dy == 0) continue;
+            if(y+dy >= 0 && y+dy < board.getHeight()){
+                if(board.getSlot(x,y+dy).getDisc() == disc){
+                    inARow++;
+                } else {
+                    inARow = 1;
                 }
-                if(fourEquals) return true;
+                if(inARow == 4) return true;
             }
         }
 
-        // Diagonals from top
-        for (int i = 0; i < board.getWidth(); i++) {
-            // top -> down-right
-            for (int j = 0; j+i < board.getWidth()-3 && j < board.getHeight()-3; j++) {
-                Disc current = board.getSlot(j+i,j).getDisc();
-                if(current == null) continue;
-                boolean fourEquals = true;
-                for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(j+i+k,j+k).getDisc() != current){
-                        fourEquals = false;
-                        break;
-                    }
-
+        // Diagonal: up-right
+        inARow = 1;
+        for (int d = -3; d <= 3; d++) {
+            if(d == 0) continue;
+            if(x+d >= 0 && x+d < board.getWidth() && y+d >= 0 && y+d < board.getHeight()){
+                if(board.getSlot(x+d,y+d).getDisc() == disc){
+                    inARow++;
+                } else {
+                    inARow = 1;
                 }
-                if(fourEquals) return true;
-
-            }
-
-            // top -> down-left
-            for (int j = 0; i-j >= 3 && j < board.getHeight()-3; j++) {
-                Disc current = board.getSlot(i-j,j).getDisc();
-                if(current == null) continue;
-                boolean fourEquals = true;
-                for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(i-j-k,j+k).getDisc() != current){
-                        fourEquals = false;
-                        break;
-                    }
-
-                }
-                if(fourEquals) return true;
-
+                if(inARow == 4) return true;
             }
         }
-        
-        // Diagonals from sides
-        for (int j = 0; j < board.getHeight(); j++) {
-            // Left -> down-right
-            for (int i = 0; j+i < board.getHeight()-3 && i < board.getWidth()-3; i++) {
-                Disc current = board.getSlot(i,j).getDisc();
-                if(current == null) continue;
-                boolean fourEquals = true;
-                for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(i+k,j+i+k).getDisc() != current){
-                        fourEquals = false;
-                        break;
-                    }
 
+        // Diagonal: up-left
+        inARow = 1;
+        for (int d = -3; d <= 3; d++) {
+            if(d == 0) continue;
+            if(x-d >= 0 && x-d < board.getWidth() && y+d >= 0 && y+d < board.getHeight()){
+                if(board.getSlot(x-d,y+d).getDisc() == disc){
+                    inARow++;
+                } else {
+                    inARow = 1;
                 }
-                if(fourEquals){
-                    System.out.println(i+","+j);
-                    return true;
-                }
+                if(inARow == 4) return true;
             }
-
-            // Right -> down-left
-            for (int i = 0; j+i < board.getHeight()-3 && board.getWidth()-i > 3; i++) {
-                Disc current = board.getSlot(board.getWidth()-1-i, j+i).getDisc();
-                if(current == null) continue;
-                boolean fourEquals = true;
-                for (int k = 1; k < 4; k++) {
-                    if(board.getSlot(board.getWidth()-1-i-k, j+i+k).getDisc() != current){
-                        fourEquals = false;
-                        break;
-                    }
-                }
-                if(fourEquals){
-                    System.out.println((board.getWidth()-1-i)+","+(j+i));
-                    return true;
-                }
-
-            }
-            
         }
 
         return false;

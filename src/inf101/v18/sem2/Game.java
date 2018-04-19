@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
+import javax.imageio.event.IIOReadProgressListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +15,12 @@ public class Game {
     private Board board;
     private List<IPlayer> players; // Datainvariant: size 2
     private int turn;
-    private final int COLUMNS = 7;
-    private final int ROWS = 6;
+    private final int columns = 7;
+    private final int rows = 6;
     private List<Integer> history;
 
     public Game(){
-        board = new Board(COLUMNS, ROWS);
+        board = new Board(columns,rows);
         gameState = GameState.PLAYING;
         turn = 0;
         players = new ArrayList<>();
@@ -59,7 +60,7 @@ public class Game {
     }
 
     private void drop(int column){
-        if(column < 0 || column >= COLUMNS){
+        if(column < 0 || column >= columns){
             throw new IllegalArgumentException("Invalid column " + column);
         }
         IPlayer player = players.get(turn % 2);
@@ -110,8 +111,8 @@ public class Game {
         context.restore();
     }
 
-    public int getCOLUMNS() {
-        return COLUMNS;
+    public int getColumns() {
+        return columns;
     }
 
     public Board getBoard() {
@@ -120,5 +121,13 @@ public class Game {
 
     public GameState getState(){
         return gameState;
+    }
+
+    public IPlayer getPlayer(int i){
+        return players.get(i);
+    }
+
+    public IPlayer getCurrentPlayer(){
+        return players.get(turn % 2);
     }
 }

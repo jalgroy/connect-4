@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Game game;
     private Stage stage;
-    private final double SF = 1; // Scaling factor
+    private final double SF = 1.5; // Scaling factor
     // Window dimensions
     private double width = 1550*SF;
     private double height = 950*SF;
@@ -53,7 +53,6 @@ public class Main extends Application {
             stage.setScene(getPlayerScene(false, 1));
         });
 
-
         Button btnAI = new Button("Start game vs HAL 9000");
         btnAI.setScaleX(1.5*SF);
         btnAI.setScaleY(1.5*SF);
@@ -81,15 +80,18 @@ public class Main extends Application {
         gameScene.setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());
             game.draw(context,gameWidth,gameHeight);
+            updateSidebar(root, width-gameWidth, height);
         });
 
         game.draw(context,gameWidth,gameHeight);
 
         root.getChildren().add(canvas);
 
-        for (int i = 1; i <= 7; i++) {
-            Rectangle r = new Rectangle(gameWidth/7, height-gameHeight);
-            r.setX((i-1)*gameWidth/7);
+        int cl = game.getColumns();
+
+        for (int i = 1; i <= cl; i++) {
+            Rectangle r = new Rectangle(gameWidth/cl, height-gameHeight);
+            r.setX((i-1)*gameWidth/cl);
             r.setY(0);
             if(i % 2 == 0){
                 r.setFill(Color.LIGHTGRAY);
@@ -98,7 +100,7 @@ public class Main extends Application {
             }
 
             Text num = new Text();
-            num.setX(i*gameWidth/7 - gameWidth/14);
+            num.setX(i*gameWidth/cl - gameWidth/(2*cl));
             num.setY((height-gameHeight)/2);
             num.setText(Integer.toString(i));
             num.setFill(Color.BLACK);
@@ -112,9 +114,42 @@ public class Main extends Application {
         sideBar.setX(gameWidth);
         sideBar.setFill(Color.LIGHTGRAY);
 
-        root.getChildren().add(sideBar);
+        updateSidebar(root,width-gameWidth, height);
+
+        root.getChildren().addAll(sideBar);
 
         return gameScene;
+    }
+
+    private void updateSidebar(Group root, double sWidth, double sHeight){
+        Rectangle sideBar = new Rectangle(sWidth, height);
+        sideBar.setX(width-sWidth);
+        sideBar.setFill(Color.LIGHTGRAY);
+
+        Text gameStatus = new Text();
+        gameStatus.setScaleX(3*SF);
+        gameStatus.setScaleY(3*SF);
+        switch (game.getState()){
+            case PLAYING:
+                gameStatus.setText(game.getCurrentPlayer().getName() + "'s turn");
+                break;
+            case ONE_WON:
+                gameStatus.setText(game.getCurrentPlayer().getName() + " won!");
+                break;
+            case TWO_WON:
+                gameStatus.setText(game.getCurrentPlayer().getName() + " won!");
+                break;
+            case DRAW:
+                gameStatus.setText("It's a draw!");
+                break;
+        }
+
+        gameStatus.setX(width-sWidth);
+        gameStatus.setY(100*SF);
+        gameStatus.setWrappingWidth(sWidth);
+        gameStatus.setTextAlignment(TextAlignment.CENTER);
+
+        root.getChildren().addAll(sideBar,gameStatus);
     }
 
     private Scene getPlayerScene(boolean vsAI, int n){

@@ -1,6 +1,5 @@
 package inf101.v18.sem2.player;
 
-import inf101.v18.sem2.Board;
 import inf101.v18.sem2.Disc;
 
 public class Player implements IPlayer {

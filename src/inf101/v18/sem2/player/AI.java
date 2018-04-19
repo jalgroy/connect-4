@@ -1,6 +1,5 @@
 package inf101.v18.sem2.player;
 
-import inf101.v18.sem2.Board;
 import inf101.v18.sem2.Disc;
 import inf101.v18.sem2.Game;
 import inf101.v18.sem2.Rules;
@@ -22,7 +21,7 @@ public class AI implements IPlayer {
     public int getMove(){
         // TODO: Prevent infinite loop, make smarter
         while (true) {
-            int column = random.nextInt(game.getCOLUMNS());
+            int column = random.nextInt(game.getColumns());
             if(Rules.isLegalMove(game.getBoard(), column)){
                 return column;
             }

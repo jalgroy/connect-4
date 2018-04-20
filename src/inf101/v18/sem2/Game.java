@@ -2,11 +2,11 @@ package inf101.v18.sem2;
 
 import inf101.v18.sem2.player.AI;
 import inf101.v18.sem2.player.IPlayer;
+import inf101.v18.sem2.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
-import javax.imageio.event.IIOReadProgressListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +27,22 @@ public class Game {
         history = new ArrayList<>();
     }
 
+    public Game copy(){
+        Game g = new Game();
+        g.board = new Board(columns,rows);
+        for(IPlayer p : players){
+            if(p instanceof AI){
+                g.addPlayer(new AI(this));
+            } else {
+                g.addPlayer(new Player(p.getName(), p.getDisc()));
+            }
+        }
+        for (Integer i : history) {
+            g.drop(i, true);
+        }
+        return g;
+    }
+
     public void addPlayer(IPlayer player){
         players.add(player);
     }
@@ -35,31 +51,31 @@ public class Game {
         if(gameState == GameState.PLAYING) {
             switch (key) {
                 case DIGIT1:
-                    drop(0);
+                    drop(0, false);
                     break;
                 case DIGIT2:
-                    drop(1);
+                    drop(1,false);
                     break;
                 case DIGIT3:
-                    drop(2);
+                    drop(2,false);
                     break;
                 case DIGIT4:
-                    drop(3);
+                    drop(3,false);
                     break;
                 case DIGIT5:
-                    drop(4);
+                    drop(4,false);
                     break;
                 case DIGIT6:
-                    drop(5);
+                    drop(5,false);
                     break;
                 case DIGIT7:
-                    drop(6);
+                    drop(6,false);
                     break;
             }
         }
     }
 
-    private void drop(int column){
+    public void drop(int column, boolean simulation){
         if(column < 0 || column >= columns){
             throw new IllegalArgumentException("Invalid column " + column);
         }
@@ -67,7 +83,9 @@ public class Game {
         if(!(player instanceof AI)){
             if(board.drop(column, player.getDisc())){
                 history.add(column);
-                nextTurn();
+                if(!simulation) {
+                    nextTurn();
+                }
             } else {
                 System.out.println("Invalid drop.");
             }
@@ -97,7 +115,7 @@ public class Game {
     }
 
     public void draw(GraphicsContext context, double width, double height){
-        // TODO: Expand UI, falling animation somehow
+        // TODO: Falling animation
         context.save();
         context.setFill(Color.DEEPSKYBLUE);
         context.fillRect(0, 0, width, height);
@@ -129,5 +147,9 @@ public class Game {
 
     public IPlayer getCurrentPlayer(){
         return players.get(turn % 2);
+    }
+
+    public int getLastMove(){
+        return history.get(history.size()-1);
     }
 }

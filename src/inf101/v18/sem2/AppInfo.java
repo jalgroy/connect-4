@@ -11,11 +11,11 @@ public class AppInfo {
 	/**
 	 * The main class, for starting the application
 	 */
-	public static final Class<?> APP_MAIN_CLASS = null; // e.g., inf101.v18.sem2.Main.class
+	public static final Class<?> APP_MAIN_CLASS = inf101.v18.sem2.Main.class; // e.g., inf101.v18.sem2.Main.class
 	/**
 	 * Your name.
 	 */
-	public static final String APP_DEVELOPER = "INF101-Student";
+	public static final String APP_DEVELOPER = "Joakim Algrøy";
 	/**
 	 * A short description.
 	 */

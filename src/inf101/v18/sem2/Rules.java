@@ -1,5 +1,8 @@
 package inf101.v18.sem2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Rules {
     public static boolean isLegalMove(Board board, int column){
         return board.getSlot(column, 0).isEmpty();
@@ -78,6 +81,28 @@ public class Rules {
         }
 
         return false;
+    }
+
+    public static List<Integer> getLegalMoves(Board board){
+        List<Integer> moves = new ArrayList<>();
+        for (int i = 0; i < board.getWidth(); i++) {
+            if(isLegalMove(board, i)) moves.add(i);
+        }
+        return moves;
+    }
+
+    public static int countNeighbours(Board board, int x, int y){
+        int count = 0;
+        Disc disc = board.getSlot(x,y).getDisc();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if(dx == 0 && dy == 0) continue;
+                if(x+dx >= 0 && x+dx < board.getWidth() && y+dy >= 0 && y+dy < board.getHeight()){
+                    if(board.getSlot(x+dx,y+dy).getDisc() == disc) count++;
+                }
+            }
+        }
+        return count;
     }
 
     public static boolean isDraw(Board board, int lastMove){

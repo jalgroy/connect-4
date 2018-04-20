@@ -17,7 +17,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-
 public class Main extends Application {
     private Game game;
     private Stage stage;
@@ -43,6 +42,7 @@ public class Main extends Application {
     private Scene titleScene(){
         Group root = new Group();
         Scene titleScene = new Scene(root,width,height);
+
         Button btnMultiplayer = new Button("Start 2-player game");
         btnMultiplayer.setScaleX(1.5*SF);
         btnMultiplayer.setScaleY(1.5*SF);

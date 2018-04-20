@@ -40,6 +40,13 @@ public class Game {
         players.add(player);
     }
 
+    public void mouseClicked(double x){
+       if(gameState == GameState.PLAYING){
+           int column = (int) (x*columns / width);
+           drop(column, false);
+       }
+    }
+
     public void keyPressed(KeyCode key){
         if(gameState == GameState.PLAYING) {
             switch (key) {

@@ -88,11 +88,7 @@ public class Main extends Application {
         });
 
         canvas.setOnMousePressed(e -> {
-            double x = e.getX();
-            int column = (int) (x / (gameWidth / game.getColumns()));
-            if (game.getState() == GameState.PLAYING){
-                game.drop(column, false);
-            }
+            game.mouseClicked(e.getX());
             game.draw();
             updateSidebar(root, width - gameWidth, height);
         });

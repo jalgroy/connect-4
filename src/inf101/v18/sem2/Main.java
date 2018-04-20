@@ -84,13 +84,13 @@ public class Main extends Application {
         gameScene.setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());
             game.draw();
-            updateSidebar(root, width-gameWidth, height);
+            updateSidebar(root, width-gameWidth);
         });
 
         canvas.setOnMousePressed(e -> {
             game.mouseClicked(e.getX());
             game.draw();
-            updateSidebar(root, width - gameWidth, height);
+            updateSidebar(root, width - gameWidth);
         });
 
         game.draw();
@@ -99,6 +99,7 @@ public class Main extends Application {
 
         int cl = game.getColumns();
 
+        // Numbers
         for (int i = 1; i <= cl; i++) {
             Rectangle r = new Rectangle(gameWidth/cl, height-gameHeight);
             r.setX((i-1)*gameWidth/cl);
@@ -120,12 +121,12 @@ public class Main extends Application {
             root.getChildren().addAll(r, num);
         }
 
-        updateSidebar(root,width-gameWidth, height);
+        updateSidebar(root,width-gameWidth);
 
         return gameScene;
     }
 
-    private void updateSidebar(Group root, double sWidth, double sHeight){
+    private void updateSidebar(Group root, double sWidth){
         Rectangle sideBar = new Rectangle(sWidth, height);
         sideBar.setX(width-sWidth);
         sideBar.setFill(Color.LIGHTGRAY);

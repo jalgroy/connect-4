@@ -34,18 +34,11 @@ public class AI implements IPlayer {
         return legalMoves.get(moveIndex);
     }
 
-    private int getRandomMax(List<Integer> moveRatings, int max){
-        List<Integer> maxIndexes = new ArrayList<>();
-        for (int i = 0; i < moveRatings.size(); i++) {
-            if(moveRatings.get(i) == max) maxIndexes.add(i);
-        }
-        return maxIndexes.get(random.nextInt(maxIndexes.size()));
-    }
 
     private int rateMove(Game game, int move, int depth){
         Game g = game.copy();
-        g.addPlayer(new AI(g, game.getPlayer(0).getDisc()));
         g.addPlayer(new AI(g, game.getPlayer(1).getDisc()));
+        g.addPlayer(new AI(g, game.getPlayer(0).getDisc()));
         g.drop(move, true);
         int rating = 0;
         rating += ratePosition(g);
@@ -67,8 +60,15 @@ public class AI implements IPlayer {
                 rating -= 1000;
             }
         }
-        System.out.println(rating);
         return rating;
+    }
+
+    private int getRandomMax(List<Integer> moveRatings, int max){
+        List<Integer> maxIndexes = new ArrayList<>();
+        for (int i = 0; i < moveRatings.size(); i++) {
+            if(moveRatings.get(i) == max) maxIndexes.add(i);
+        }
+        return maxIndexes.get(random.nextInt(maxIndexes.size()));
     }
 
     @Override

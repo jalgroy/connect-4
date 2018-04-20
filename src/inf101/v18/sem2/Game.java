@@ -91,10 +91,10 @@ public class Game {
             turn++;
             IPlayer nextPlayer = players.get(turn % 2);
             if (!simulation && nextPlayer instanceof AI) {
-                int column = ((AI) nextPlayer).getMove(5);
+                int column = ((AI) nextPlayer).getMove(6);
                 history.add(column);
                 board.drop(column, nextPlayer.getDisc());
-                nextTurn(simulation);
+                nextTurn(false);
             }
         }
     }

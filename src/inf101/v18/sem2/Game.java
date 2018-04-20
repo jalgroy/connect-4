@@ -2,7 +2,6 @@ package inf101.v18.sem2;
 
 import inf101.v18.sem2.player.AI;
 import inf101.v18.sem2.player.IPlayer;
-import inf101.v18.sem2.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -29,17 +28,8 @@ public class Game {
 
     public Game copy(){
         Game g = new Game();
-        g.board = new Board(columns,rows);
-        for(IPlayer p : players){
-            if(p instanceof AI){
-                g.addPlayer(new AI(this));
-            } else {
-                g.addPlayer(new Player(p.getName(), p.getDisc()));
-            }
-        }
-        for (Integer i : history) {
-            g.drop(i, true);
-        }
+        g.board = board.copy();
+        g.history.addAll(this.history);
         return g;
     }
 
@@ -80,36 +70,31 @@ public class Game {
             throw new IllegalArgumentException("Invalid column " + column);
         }
         IPlayer player = players.get(turn % 2);
-        if(!(player instanceof AI)){
-            if(board.drop(column, player.getDisc())){
-                history.add(column);
-                if(!simulation) {
-                    nextTurn();
-                }
-            } else {
-                System.out.println("Invalid drop.");
-            }
+        if(board.drop(column, player.getDisc())){
+            history.add(column);
+            nextTurn(simulation);
+        } else {
+            System.out.println("Invalid drop.");
         }
     }
 
-    private void nextTurn(){
+    private void nextTurn(boolean simulation){
         if(Rules.isWin(board, history.get(history.size()-1))){
             if(turn % 2 == 0){
                 gameState = GameState.ONE_WON;
             } else {
                 gameState = GameState.TWO_WON;
             }
-            System.out.println(gameState);
         } else if(Rules.isDraw(board, history.get(history.size()-1))) {
             gameState = GameState.DRAW;
         } else{
             turn++;
             IPlayer nextPlayer = players.get(turn % 2);
-            if (nextPlayer instanceof AI) {
-                int column = ((AI) nextPlayer).getMove();
+            if (!simulation && nextPlayer instanceof AI) {
+                int column = ((AI) nextPlayer).getMove(5);
                 history.add(column);
                 board.drop(column, nextPlayer.getDisc());
-                nextTurn();
+                nextTurn(simulation);
             }
         }
     }

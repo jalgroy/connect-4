@@ -14,6 +14,18 @@ public class Board {
         grid = new Grid<>(width,height);
         initGrid();
     }
+
+    public Board copy(){
+        Board b = new Board(width,height);
+        b.grid = new Grid<>(width, height);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                b.grid.set(i,j, new Slot(i,j));
+                b.grid.get(i,j).setDisc(this.grid.get(i,j).getDisc());
+            }
+        }
+        return b;
+    }
     
     private void initGrid(){
         for (int i = 0; i < width; i++) {

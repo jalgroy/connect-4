@@ -182,10 +182,10 @@ public class Main extends Application {
             game.addPlayer(p);
             if(n == 1){
                 if(vsAI){
-                    game.addPlayer(new AI(game));
+                    game.addPlayer(new AI(game, Disc.HAL));
                     stage.setScene(gameScene());
                 }else {
-                    stage.setScene(getPlayerScene(vsAI, 2));
+                    stage.setScene(getPlayerScene(false, 2));
                 }
             } else {
                 stage.setScene(gameScene());

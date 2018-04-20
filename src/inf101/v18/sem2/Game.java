@@ -17,6 +17,9 @@ public class Game {
     private final int columns = 7;
     private final int rows = 6;
     private List<Integer> history;
+    private GraphicsContext context;
+    private double width;
+    private double height;
 
     public Game(){
         board = new Board(columns,rows);
@@ -99,7 +102,7 @@ public class Game {
         }
     }
 
-    public void draw(GraphicsContext context, double width, double height){
+    public void draw(){
         // TODO: Falling animation
         context.save();
         context.setFill(Color.DEEPSKYBLUE);
@@ -136,5 +139,17 @@ public class Game {
 
     public int getLastMove(){
         return history.get(history.size()-1);
+    }
+
+    public void setContext(GraphicsContext context) {
+        this.context = context;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 }

@@ -29,7 +29,6 @@ public class AI implements IPlayer {
             moveRatings.add(rateMove(game, move, depth));
         }
         int maxRating = Collections.max(moveRatings);
-        if(depth == 5) System.out.println(maxRating);
         int moveIndex = getRandomMax(moveRatings, maxRating);
         return legalMoves.get(moveIndex);
     }
@@ -42,7 +41,7 @@ public class AI implements IPlayer {
         g.drop(move, true);
         int rating = 0;
         rating += ratePosition(g);
-        if(depth > 1){
+        if(depth > 1 && rating < 500){
             int nextMove = ((AI) g.getCurrentPlayer()).getMove(depth-1);
             g.drop(nextMove, true);
             rating += ratePosition(g)*depth;

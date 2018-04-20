@@ -77,13 +77,27 @@ public class Main extends Application {
         canvas.setLayoutY(height - gameHeight);
         GraphicsContext context = canvas.getGraphicsContext2D();
 
+        game.setContext(context);
+        game.setWidth(gameWidth);
+        game.setHeight(gameHeight);
+
         gameScene.setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());
-            game.draw(context,gameWidth,gameHeight);
+            game.draw();
             updateSidebar(root, width-gameWidth, height);
         });
 
-        game.draw(context,gameWidth,gameHeight);
+        canvas.setOnMousePressed(e -> {
+            double x = e.getX();
+            int column = (int) (x / (gameWidth / game.getColumns()));
+            if (game.getState() == GameState.PLAYING){
+                game.drop(column, false);
+            }
+            game.draw();
+            updateSidebar(root, width - gameWidth, height);
+        });
+
+        game.draw();
 
         root.getChildren().add(canvas);
 

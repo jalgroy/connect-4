@@ -10,19 +10,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class AI implements IPlayer {
+public class AI implements IAI {
     private String name = "HAL 9000";
     private Disc disc;
-    private Game game;
     private Random random;
 
     public AI(Game game, Disc disc){
-        this.game = game;
         this.disc = disc;
         random = new Random();
     }
 
-    public int getMove(int depth){
+    public int getMove(Game game, int depth){
         List<Integer> legalMoves = Rules.getLegalMoves(game.getBoard());
         List<Integer> moveRatings = new ArrayList<>();
         for(Integer move : legalMoves){
@@ -42,7 +40,7 @@ public class AI implements IPlayer {
         int rating = 0;
         rating += ratePosition(g);
         if(depth > 1 && rating < 500){
-            int nextMove = ((AI) g.getCurrentPlayer()).getMove(depth-1);
+            int nextMove = ((AI) g.getCurrentPlayer()).getMove(g,depth-1);
             g.drop(nextMove, true);
             rating += ratePosition(g)*depth;
         }

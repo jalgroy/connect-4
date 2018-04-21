@@ -46,6 +46,16 @@ public class Board {
         return true;
     }
 
+    public boolean remove(int column){
+        for (int i = 0; i < height; i++) {
+            if(getSlot(column, i).getDisc() != null){
+                getSlot(column, i).setDisc(null);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getWidth(){
         return width;
     }

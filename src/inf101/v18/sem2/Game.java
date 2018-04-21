@@ -101,11 +101,18 @@ public class Game {
             turn++;
             IPlayer nextPlayer = players.get(turn % 2);
             if (!simulation && nextPlayer instanceof AI) {
-                int column = ((AI) nextPlayer).getMove(6);
+                int column = ((AI) nextPlayer).getMove(this,5);
                 history.add(column);
                 board.drop(column, nextPlayer.getDisc());
                 nextTurn(false);
             }
+        }
+    }
+
+    public void undo(){
+        if(board.remove(history.get(history.size()-1))){
+            turn--;
+            history.remove(history.size()-1);
         }
     }
 

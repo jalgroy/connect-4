@@ -148,13 +148,35 @@ public class Main extends Application {
                 gameStatus.setText("It's a draw!");
                 break;
         }
-
         gameStatus.setX(width-sWidth);
         gameStatus.setY(100*SF);
         gameStatus.setWrappingWidth(sWidth);
         gameStatus.setTextAlignment(TextAlignment.CENTER);
 
-        root.getChildren().addAll(sideBar,gameStatus);
+        Button btnUndo = new Button("Undo");
+        btnUndo.setScaleX(1.5*SF);
+        btnUndo.setScaleY(1.5*SF);
+        btnUndo.setLayoutX(width - .7*sWidth);
+        btnUndo.setLayoutY(.8*height);
+        btnUndo.setMinWidth(.4*sWidth);
+        btnUndo.setOnAction(actionEvent -> {
+            game.undo();
+            game.draw();
+        });
+
+        Button btnNewGame = new Button("New game");
+        btnNewGame.setScaleX(1.5*SF);
+        btnNewGame.setScaleY(1.5*SF);
+        btnNewGame.setLayoutX(width - .7*sWidth);
+        btnNewGame.setLayoutY(.9*height);
+        btnNewGame.setMinWidth(.4*sWidth);
+        btnNewGame.setOnAction(actionEvent -> {
+            game = new Game();
+            stage.setScene(titleScene());
+        });
+
+
+        root.getChildren().addAll(sideBar, gameStatus, btnNewGame, btnUndo);
     }
 
     private Scene getPlayerScene(boolean vsAI, int n){
@@ -180,6 +202,15 @@ public class Main extends Application {
         nameInput.setLayoutY(height/2);
         nameInput.setMinWidth(width/4);
 
+        Text errorText = new Text();
+        errorText.setTextAlignment(TextAlignment.CENTER);
+        errorText.setScaleX(3*SF);
+        errorText.setScaleY(3*SF);
+        errorText.setLayoutX(.375*width);
+        errorText.setLayoutY(7*height/8);
+        errorText.setWrappingWidth(width/4);
+        errorText.setFill(Color.RED);
+
         Button btnSubmit = new Button("Submit");
         btnSubmit.setScaleX(1.5*SF);
         btnSubmit.setScaleY(1.5*SF);
@@ -187,7 +218,14 @@ public class Main extends Application {
         btnSubmit.setLayoutY(3*height/4);
         btnSubmit.setMinWidth(width/ 4);
         btnSubmit.setOnAction(actionEvent -> {
-            if(nameInput.getText().equals("")) return;
+            if(nameInput.getText().equals("")) {
+                errorText.setText("Name cannot be empty!");
+                return;
+            }
+            if(nameInput.getText().length() > 20) {
+                errorText.setText("Name cannot be longer than 20 characters!");
+                return;
+            }
             Player p = new Player(nameInput.getText(), n == 1 ? Disc.GREEN : Disc.YELLOW);
             p.setName(nameInput.getCharacters().toString());
             game.addPlayer(p);
@@ -203,7 +241,7 @@ public class Main extends Application {
             }
         });
 
-        root.getChildren().addAll(getTitleImage(), info, btnSubmit, nameInput);
+        root.getChildren().addAll(getTitleImage(), info, errorText, btnSubmit, nameInput);
 
         return getPlayerScene;
     }

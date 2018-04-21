@@ -8,34 +8,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Disc {
-    HAL {
-        @Override
-        public void draw(GraphicsContext context, double x, double y, double width, double height){
-            drawImage(context, x, y, width, height, "HAL9000");
-        }
-    },GREEN {
-        @Override
-        public void draw(GraphicsContext context, double x, double y, double width, double height){
-            drawColor(context,x,y,width,height,Color.GREEN);
-        }
-    },YELLOW {
-        @Override
-        public void draw(GraphicsContext context, double x, double y, double width, double height){
-            drawColor(context,x,y,width,height,Color.YELLOW);
-        }
-    },BLACK {
-        @Override
-        public void draw(GraphicsContext context, double x, double y, double width, double height){
-            drawColor(context,x,y,width,height,Color.BLACK);
-        }
-    },WHITE {
-        @Override
-        public void draw(GraphicsContext context, double x, double y, double width, double height){
-            drawColor(context,x,y,width,height,Color.WHITE);
-        }
-    };
+    HAL(true, Color.RED)
+    ,GREEN(false, Color.GREEN)
+    ,YELLOW(false, Color.YELLOW)
+    ,BLACK(false, Color.BLACK)
+    ,WHITE(false, Color.WHITE);
 
-    public abstract void draw(GraphicsContext context, double x, double y, double width, double height);
+    //public abstract void draw(GraphicsContext context, double x, double y, double width, double height);
+
+    private boolean hasImage;
+    private Color color;
+
+    Disc(boolean hasImage, Color color){
+        this.hasImage = hasImage;
+        this.color = color;
+    }
+
+    public void draw(GraphicsContext context, double x, double y, double width, double height){
+        if(hasImage){
+            drawImage(context, x, y, width, height, this.toString());
+        } else {
+            drawColor(context, x, y, width, height, color);
+        }
+    }
 
     private static void drawColor(GraphicsContext context, double x, double y, double width, double height, Color color){
         context.setFill(color);
@@ -50,7 +45,7 @@ public enum Disc {
 
     private static Map<String, Image> getDiscImages(){
         Map<String, Image> discImages = new HashMap<>();
-        discImages.put("HAL9000", new Image("inf101/v18/sem2/images/HAL9000.png"));
+        discImages.put("HAL", new Image("inf101/v18/sem2/images/HAL.png"));
         return discImages;
     }
 }

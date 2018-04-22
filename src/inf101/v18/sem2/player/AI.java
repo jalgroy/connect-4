@@ -11,15 +11,23 @@ import java.util.List;
 import java.util.Random;
 
 public class AI implements IAI {
-    private String name = "HAL 9000";
+    private String name;
     private Disc disc;
     private Random random;
 
-    public AI(Game game, Disc disc){
+    public AI(){
+        disc = Disc.HAL;
+        name = "HAL 9000";
+        random = new Random();
+    }
+
+    public AI(String name, Disc disc){
+        this.name = name;
         this.disc = disc;
         random = new Random();
     }
 
+    @Override
     public int getMove(Game game, int depth){
         List<Integer> legalMoves = Rules.getLegalMoves(game.getBoard());
         List<Integer> moveRatings = new ArrayList<>();
@@ -34,8 +42,8 @@ public class AI implements IAI {
 
     private int rateMove(Game game, int move, int depth){
         Game g = game.copy();
-        g.addPlayer(new AI(g, game.getPlayer(1).getDisc()));
-        g.addPlayer(new AI(g, game.getPlayer(0).getDisc()));
+        g.addPlayer(new AI("sim1", game.getPlayer(1).getDisc()));
+        g.addPlayer(new AI("sim2", game.getPlayer(0).getDisc()));
         g.drop(move, true);
         int rating = 0;
         rating += ratePosition(g);

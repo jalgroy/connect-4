@@ -17,6 +17,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends Application {
     private Game game;
     private Stage stage;
@@ -162,6 +165,7 @@ public class Main extends Application {
         btnUndo.setOnAction(actionEvent -> {
             game.undo();
             game.draw();
+            updateSidebar(root, sWidth);
         });
 
         Button btnNewGame = new Button("New game");
@@ -228,10 +232,13 @@ public class Main extends Application {
             }
             Player p = new Player(nameInput.getText(), n == 1 ? Disc.GREEN : Disc.YELLOW);
             p.setName(nameInput.getCharacters().toString());
-            game.addPlayer(p);
+            if(!game.addPlayer(p)){
+                errorText.setText("Name already taken.");
+                return;
+            }
             if(n == 1){
                 if(vsAI){
-                    game.addPlayer(new AI(game, Disc.HAL));
+                    game.addPlayer(new AI());
                     stage.setScene(gameScene());
                 }else {
                     stage.setScene(getPlayerScene(false, 2));

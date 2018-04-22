@@ -36,8 +36,14 @@ public class Game {
         return g;
     }
 
-    public void addPlayer(IPlayer player){
+    public boolean addPlayer(IPlayer player){
+        for(IPlayer p : players){
+            if(p.getName().equals(player.getName()) || p.getDisc() == player.getDisc()){
+                return false;
+            }
+        }
         players.add(player);
+        return true;
     }
 
     public void mouseClicked(double x){
@@ -113,6 +119,7 @@ public class Game {
         if(board.remove(history.get(history.size()-1))){
             turn--;
             history.remove(history.size()-1);
+            gameState = GameState.PLAYING;
         }
     }
 

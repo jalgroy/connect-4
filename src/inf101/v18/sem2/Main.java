@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Game game;
     private Stage stage;
-    public static final double SF = 1.5; // Scaling factor
+    private static final double SF = 1.5; // Scaling factor
     // Window dimensions
     private double width = 1550*SF;
     private double height = 950*SF;

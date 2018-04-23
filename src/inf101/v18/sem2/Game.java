@@ -1,6 +1,6 @@
 package inf101.v18.sem2;
 
-import inf101.v18.sem2.player.AI;
+import inf101.v18.sem2.player.IAI;
 import inf101.v18.sem2.player.IPlayer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -105,17 +105,22 @@ public class Game {
             gameState = GameState.DRAW;
         } else{
             turn++;
-            IPlayer nextPlayer = players.get(turn % 2);
-            if (!simulation && nextPlayer instanceof AI) {
-                int column = ((AI) nextPlayer).getMove(this,5);
-                history.add(column);
-                board.drop(column, nextPlayer.getDisc());
-                nextTurn(false);
-            }
+            if(!simulation) moveAI();
+        }
+    }
+
+    public void moveAI(){
+        IPlayer current = getCurrentPlayer();
+        if(current instanceof IAI){
+            int column = ((IAI)current).getMove(this, 5);
+            history.add(column);
+            board.drop(column, current.getDisc());
+            nextTurn(false);
         }
     }
 
     public void undo(){
+        if(history.size() == 0) return;
         if(board.remove(history.get(history.size()-1))){
             turn--;
             history.remove(history.size()-1);

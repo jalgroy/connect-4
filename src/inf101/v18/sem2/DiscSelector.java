@@ -10,8 +10,10 @@ public class DiscSelector extends Canvas {
 
     DiscSelector(double width, double height, Disc[] discs){
         super(width, height);
-        if(discs.length < 1) {
-            throw new IllegalArgumentException("Disc list cannot be empty");
+        if(discs == null){
+            throw new IllegalArgumentException("Disc array cannot be null");
+        } else if(discs.length < 1) {
+            throw new IllegalArgumentException("Disc array cannot be empty");
         }
         this.discs = discs;
         selected = 0;

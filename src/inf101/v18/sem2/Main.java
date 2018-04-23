@@ -268,27 +268,6 @@ public class Main extends Application {
         return getPlayerScene;
     }
 
-    private Canvas getDiscSelectionCanvas(double width, double height, Disc selected){
-        Canvas canvas = new Canvas(width, height);
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        canvas.setLayoutX(.25*width);
-        canvas.setLayoutY(.5*height);
-        Disc[] discs = Disc.nonReservedValues();
-        int nDiscs = discs.length;
-        double diameter = .8*height;
-        for (int i = 0; i < nDiscs; i++) {
-            if(discs[i] == selected){
-                discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
-                context.setStroke(Color.RED);
-                context.setLineWidth(5*SF);
-                context.strokeOval(i*width/nDiscs + .1*height, .1*height, diameter, diameter);
-            }else{
-                discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
-            }
-        }
-        return canvas;
-    }
-
     private ImageView getTitleImage(){
         ImageView title = new ImageView(new Image("/inf101/v18/sem2/images/title-white.png"));
         title.setX(.2*width);

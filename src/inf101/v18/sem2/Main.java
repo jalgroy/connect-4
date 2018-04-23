@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Game game;
     private Stage stage;
-    private final double SF = 1.5; // Scaling factor
+    public static final double SF = 1.5; // Scaling factor
     // Window dimensions
     private double width = 1550*SF;
     private double height = 950*SF;
@@ -201,20 +202,23 @@ public class Main extends Application {
         nameInput.setPromptText("Enter player name");
         nameInput.setScaleX(1.5*SF);
         nameInput.setScaleY(1.5*SF);
-        nameInput.setLayoutX(.4*width);
+        nameInput.setLayoutX(.45*width);
         nameInput.setLayoutY(.4*height);
-        nameInput.setMinWidth(.2*width);
+        nameInput.setMinWidth(.1*width);
 
-        Disc selectedDisc = Disc.EARTH;
         double dWidth = .8*width;
         double dHeight = .2*height;
-        Canvas discSelection = getDiscSelectionCanvas(dWidth, dHeight, selectedDisc);
-        discSelection.setLayoutX(.1*width);
-        discSelection.setLayoutY(.5*height);
-        discSelection.setOnMousePressed(e -> {
+        DiscSelector discSelector = new DiscSelector(dWidth, dHeight, Disc.nonReservedValues());
+        discSelector.setLayoutX(.1*width);
+        discSelector.setLayoutY(.5*height);
+        GraphicsContext context = discSelector.getGraphicsContext2D();
+        discSelector.draw(context, .25*width, .5*height, dWidth, dHeight);
+        discSelector.setOnMousePressed(e -> {
             double x = e.getX();
             int nDiscs = Disc.nonReservedValues().length;
             int i = (int)(x*nDiscs/dWidth);
+            discSelector.setSelected(i);
+            discSelector.draw(context, .25*width, .5*height, dWidth, dHeight);
         });
 
         Text errorText = new Text();
@@ -229,9 +233,9 @@ public class Main extends Application {
         Button btnSubmit = new Button("Submit");
         btnSubmit.setScaleX(1.5*SF);
         btnSubmit.setScaleY(1.5*SF);
-        btnSubmit.setLayoutX(.4*width);
+        btnSubmit.setLayoutX(.45*width);
         btnSubmit.setLayoutY(.8*height);
-        btnSubmit.setMinWidth(.2*width);
+        btnSubmit.setMinWidth(.1*width);
         btnSubmit.setOnAction(actionEvent -> {
             if(nameInput.getText().equals("")) {
                 errorText.setText("Name cannot be empty!");
@@ -241,7 +245,7 @@ public class Main extends Application {
                 errorText.setText("Name cannot be longer than 20 characters!");
                 return;
             }
-            Player p = new Player(nameInput.getText(), n == 1 ? Disc.EARTH : Disc.JUPITER);
+            Player p = new Player(nameInput.getText(), discSelector.getSelected());
             p.setName(nameInput.getCharacters().toString());
             if(!game.addPlayer(p)){
                 errorText.setText("Name or disc already taken.");
@@ -259,7 +263,7 @@ public class Main extends Application {
             }
         });
 
-        root.getChildren().addAll(getBackgroundImage(),getTitleImage(), info, errorText, btnSubmit, nameInput, discSelection);
+        root.getChildren().addAll(getBackgroundImage(),getTitleImage(), info, errorText, btnSubmit, nameInput, discSelector);
 
         return getPlayerScene;
     }
@@ -273,7 +277,14 @@ public class Main extends Application {
         int nDiscs = discs.length;
         double diameter = .8*height;
         for (int i = 0; i < nDiscs; i++) {
-            discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+            if(discs[i] == selected){
+                discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+                context.setStroke(Color.RED);
+                context.setLineWidth(5*SF);
+                context.strokeOval(i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+            }else{
+                discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+            }
         }
         return canvas;
     }

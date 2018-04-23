@@ -19,18 +19,19 @@ public class DiscSelector extends Canvas {
         selected = 0;
     }
 
-    public void draw(GraphicsContext context, double x, double y, double width, double height){
+    public void draw(GraphicsContext context, double width, double height){
         int nDiscs = discs.length;
         double diameter = .8*height;
         for (int i = 0; i < nDiscs; i++) {
-            discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+            double x = i*width/nDiscs + (width/nDiscs-diameter)/2;
+            discs[i].draw(context, x, .1*height, diameter, diameter);
             if(i == selected) {
                 context.setStroke(Color.RED);
             }else{
                 context.setStroke(Color.BLACK);
             }
             context.setLineWidth(.03*diameter);
-            context.strokeOval(i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+            context.strokeOval(x, .1*height, diameter, diameter);
         }
     }
 

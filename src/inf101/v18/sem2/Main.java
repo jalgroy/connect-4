@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +42,6 @@ public class Main extends Application {
     private Scene titleScene(){
         Group root = new Group();
         Scene titleScene = new Scene(root,width,height);
-
 
         Button btnMultiplayer = new Button("Start 2-player game");
         btnMultiplayer.setScaleX(1.5*SF);
@@ -212,13 +210,13 @@ public class Main extends Application {
         discSelector.setLayoutX(.1*width);
         discSelector.setLayoutY(.5*height);
         GraphicsContext context = discSelector.getGraphicsContext2D();
-        discSelector.draw(context, .25*width, .5*height, dWidth, dHeight);
+        discSelector.draw(context, dWidth, dHeight);
         discSelector.setOnMousePressed(e -> {
             double x = e.getX();
             int nDiscs = Disc.nonReservedValues().length;
             int i = (int)(x*nDiscs/dWidth);
             discSelector.setSelected(i);
-            discSelector.draw(context, .25*width, .5*height, dWidth, dHeight);
+            discSelector.draw(context, dWidth, dHeight);
         });
 
         Text errorText = new Text();

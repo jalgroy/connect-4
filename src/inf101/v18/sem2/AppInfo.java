@@ -24,7 +24,10 @@ public class AppInfo {
 	 * List of extra credits (e.g. for media sources)
 	 */
 	public static final List<String> APP_EXTRA_CREDITS = Arrays.asList(
-			"HAL 9000 red eye graphic by Cryteria@Wikimedia (CC BY 3.0)"
+			"HAL 9000 red eye graphic by Cryteria @ Wikimedia (CC BY 3.0)",
+			"Earth, Moon and Mars graphic by hameed (hameed.deviantart.com) (CC Attribution)",
+			"Jupiter image by NASA (svs.gsfc.nasa.gov, public domain)",
+			"Milky Way image by FelixMittermeier @ pixabay (CC0)"
 			);
 	/**
 	 * Help text. Could be used for an in-game help page, perhaps.

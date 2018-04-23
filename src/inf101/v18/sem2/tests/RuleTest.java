@@ -14,7 +14,7 @@ public class RuleTest {
         // Fill board
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < 6; j++) {
-                board.getSlot(i,j).setDisc(Disc.GREEN);
+                board.getSlot(i,j).setDisc(Disc.EARTH);
             }
         }
         // Should have no legal moves

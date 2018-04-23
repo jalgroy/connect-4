@@ -126,7 +126,7 @@ public class Game {
     public void draw(){
         // TODO: Falling animation
         context.save();
-        context.setFill(Color.DEEPSKYBLUE);
+        context.setFill(Color.BLACK);
         context.fillRect(0, 0, width, height);
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {

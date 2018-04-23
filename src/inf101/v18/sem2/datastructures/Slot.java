@@ -2,6 +2,7 @@ package inf101.v18.sem2.datastructures;
 
 import inf101.v18.sem2.Disc;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 public class Slot {
@@ -36,7 +37,8 @@ public class Slot {
 
     public void draw(GraphicsContext context, double width, double height){
         if(disc == null){
-            Disc.WHITE.draw(context, width*(x+.1), height*(y+.1), .8*width, .8*height);
+            context.setFill(Color.WHITE);
+            context.fillOval(width*(x+.1), height*(y+.1), .8*width, .8*height);
         } else {
             disc.draw(context, width*(x+.1), height*(y+.1), .8*width, .8*height);
         }

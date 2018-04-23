@@ -17,9 +17,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main extends Application {
     private Game game;
     private Stage stage;
@@ -46,12 +43,13 @@ public class Main extends Application {
         Group root = new Group();
         Scene titleScene = new Scene(root,width,height);
 
+
         Button btnMultiplayer = new Button("Start 2-player game");
         btnMultiplayer.setScaleX(1.5*SF);
         btnMultiplayer.setScaleY(1.5*SF);
-        btnMultiplayer.setLayoutX(.375*width);
+        btnMultiplayer.setLayoutX(.4*width);
         btnMultiplayer.setLayoutY(height/2);
-        btnMultiplayer.setMinWidth(width/4);
+        btnMultiplayer.setMinWidth(.2*width);
         btnMultiplayer.setOnAction(actionEvent -> {
             stage.setScene(getPlayerScene(false, 1));
         });
@@ -59,14 +57,14 @@ public class Main extends Application {
         Button btnAI = new Button("Start game vs HAL 9000");
         btnAI.setScaleX(1.5*SF);
         btnAI.setScaleY(1.5*SF);
-        btnAI.setLayoutX(.375*width);
+        btnAI.setLayoutX(.4*width);
         btnAI.setLayoutY(3*height/4);
-        btnAI.setMinWidth(width/ 4);
+        btnAI.setMinWidth(.2*width);
         btnAI.setOnAction(actionEvent -> {
             stage.setScene(getPlayerScene(true, 1));
         });
 
-        root.getChildren().addAll(getTitleImage(), btnMultiplayer, btnAI);
+        root.getChildren().addAll(getBackgroundImage(), getTitleImage(), btnMultiplayer, btnAI);
         return titleScene;
     }
 
@@ -195,32 +193,45 @@ public class Main extends Application {
         info.setScaleX(3*SF);
         info.setScaleY(3*SF);
         info.setLayoutX(.375*width);
-        info.setLayoutY(3*height/8);
+        info.setLayoutY(.3*height);
         info.setWrappingWidth(width/4);
+        info.setFill(Color.WHITE);
 
         TextField nameInput = new TextField();
         nameInput.setPromptText("Enter player name");
         nameInput.setScaleX(1.5*SF);
         nameInput.setScaleY(1.5*SF);
-        nameInput.setLayoutX(.375*width);
-        nameInput.setLayoutY(height/2);
-        nameInput.setMinWidth(width/4);
+        nameInput.setLayoutX(.4*width);
+        nameInput.setLayoutY(.4*height);
+        nameInput.setMinWidth(.2*width);
+
+        Disc selectedDisc = Disc.EARTH;
+        double dWidth = .8*width;
+        double dHeight = .2*height;
+        Canvas discSelection = getDiscSelectionCanvas(dWidth, dHeight, selectedDisc);
+        discSelection.setLayoutX(.1*width);
+        discSelection.setLayoutY(.5*height);
+        discSelection.setOnMousePressed(e -> {
+            double x = e.getX();
+            int nDiscs = Disc.nonReservedValues().length;
+            int i = (int)(x*nDiscs/dWidth);
+        });
 
         Text errorText = new Text();
         errorText.setTextAlignment(TextAlignment.CENTER);
-        errorText.setScaleX(3*SF);
-        errorText.setScaleY(3*SF);
+        errorText.setScaleX(2*SF);
+        errorText.setScaleY(2*SF);
         errorText.setLayoutX(.375*width);
-        errorText.setLayoutY(7*height/8);
+        errorText.setLayoutY(.9*height);
         errorText.setWrappingWidth(width/4);
         errorText.setFill(Color.RED);
 
         Button btnSubmit = new Button("Submit");
         btnSubmit.setScaleX(1.5*SF);
         btnSubmit.setScaleY(1.5*SF);
-        btnSubmit.setLayoutX(.375*width);
-        btnSubmit.setLayoutY(3*height/4);
-        btnSubmit.setMinWidth(width/ 4);
+        btnSubmit.setLayoutX(.4*width);
+        btnSubmit.setLayoutY(.8*height);
+        btnSubmit.setMinWidth(.2*width);
         btnSubmit.setOnAction(actionEvent -> {
             if(nameInput.getText().equals("")) {
                 errorText.setText("Name cannot be empty!");
@@ -230,10 +241,10 @@ public class Main extends Application {
                 errorText.setText("Name cannot be longer than 20 characters!");
                 return;
             }
-            Player p = new Player(nameInput.getText(), n == 1 ? Disc.GREEN : Disc.YELLOW);
+            Player p = new Player(nameInput.getText(), n == 1 ? Disc.EARTH : Disc.JUPITER);
             p.setName(nameInput.getCharacters().toString());
             if(!game.addPlayer(p)){
-                errorText.setText("Name already taken.");
+                errorText.setText("Name or disc already taken.");
                 return;
             }
             if(n == 1){
@@ -248,18 +259,41 @@ public class Main extends Application {
             }
         });
 
-        root.getChildren().addAll(getTitleImage(), info, errorText, btnSubmit, nameInput);
+        root.getChildren().addAll(getBackgroundImage(),getTitleImage(), info, errorText, btnSubmit, nameInput, discSelection);
 
         return getPlayerScene;
     }
 
+    private Canvas getDiscSelectionCanvas(double width, double height, Disc selected){
+        Canvas canvas = new Canvas(width, height);
+        GraphicsContext context = canvas.getGraphicsContext2D();
+        canvas.setLayoutX(.25*width);
+        canvas.setLayoutY(.5*height);
+        Disc[] discs = Disc.nonReservedValues();
+        int nDiscs = discs.length;
+        double diameter = .8*height;
+        for (int i = 0; i < nDiscs; i++) {
+            discs[i].draw(context, i*width/nDiscs + .1*height, .1*height, diameter, diameter);
+        }
+        return canvas;
+    }
+
     private ImageView getTitleImage(){
-        ImageView title = new ImageView(new Image("/inf101/v18/sem2/images/title.png"));
-        title.setX(.1*width);
+        ImageView title = new ImageView(new Image("/inf101/v18/sem2/images/title-white.png"));
+        title.setX(.2*width);
         title.setY(.1*height);
-        double titleWidth = .8*width;
+        double titleWidth = .6*width;
         title.setFitWidth(titleWidth);
         title.setFitHeight(titleWidth*3/20); // Title image has 20:3 aspect ratio
         return title;
+    }
+
+    private ImageView getBackgroundImage(){
+        ImageView background = new ImageView(new Image("/inf101/v18/sem2/images/milky-way.jpg"));
+        background.setX(0);
+        background.setY(0);
+        background.setPreserveRatio(true);
+        background.setFitHeight(height);
+        return background;
     }
 }

@@ -1,11 +1,12 @@
 package inf101.v18.sem2;
 
 import inf101.v18.sem2.gui.DiscSelector;
+import inf101.v18.sem2.gui.SideBar;
 import inf101.v18.sem2.player.AI;
 import inf101.v18.sem2.player.Player;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,12 +16,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
@@ -30,6 +29,7 @@ public class Main extends Application {
     // Window dimensions
     private double width = 1550*SF;
     private double height = 950*SF;
+    private AnimationTimer animationTimer;
 
     public static void main(String[] args) {
         launch(args);
@@ -43,6 +43,7 @@ public class Main extends Application {
         stage.setScene(titleScene());
         stage.setTitle("Connect Four");
         stage.show();
+
     }
 
     private Scene titleScene(){
@@ -79,6 +80,7 @@ public class Main extends Application {
         double gameWidth = width - 500*SF;
         double gameHeight = height - 50*SF;
 
+
         root.getChildren().add(getBackgroundImage());
 
         int cl = game.getColumns();
@@ -96,7 +98,16 @@ public class Main extends Application {
             root.getChildren().add(num);
         }
 
-        updateSidebar(root,width-gameWidth);
+        SideBar sideBar = new SideBar(game, width, height, width-gameWidth, SF);
+        sideBar.setOnUndo(actionEvent -> game.undo());
+        sideBar.setOnNewGame(actionEvent -> {
+            animationTimer.stop();
+            animationTimer = null;
+            game = new Game();
+            stage.setScene(titleScene());
+        });
+
+        root.getChildren().add(sideBar);
 
         Canvas canvas = new Canvas(gameWidth,gameHeight);
         canvas.setLayoutY(height - gameHeight);
@@ -113,76 +124,27 @@ public class Main extends Application {
 
         gameScene.setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());
-            game.draw();
-            updateSidebar(root, width-gameWidth);
+            sideBar.update();
         });
 
         canvas.setOnMousePressed(e -> {
             game.mouseClicked(e.getX());
-            game.draw();
-            updateSidebar(root, width - gameWidth);
+            sideBar.update();
         });
 
-        game.draw();
+        root.getChildren().add(canvas);
 
-        root.getChildren().addAll(canvas);
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                game.draw();
+                sideBar.update();
+            }
+        };
+
+        animationTimer.start();
 
         return gameScene;
-    }
-
-    private void updateSidebar(Group root, double sWidth){
-        double padding = .05*sWidth;
-        Rectangle sideBar = new Rectangle(sWidth - 2*padding, height - 2*padding);
-        sideBar.setX(width-sWidth+padding);
-        sideBar.setY(padding);
-        sideBar.setArcHeight(padding);
-        sideBar.setArcWidth(padding);
-        sideBar.setFill(Color.LIGHTGRAY);
-
-        Text gameStatus = new Text();
-        gameStatus.setScaleX(3*SF);
-        gameStatus.setScaleY(3*SF);
-        switch (game.getState()){
-            case PLAYING:
-                gameStatus.setText(game.getCurrentPlayer().getName() + "'s turn");
-                break;
-            case WIN:
-                gameStatus.setText(game.getCurrentPlayer().getName() + " won!");
-                break;
-            case DRAW:
-                gameStatus.setText("It's a draw!");
-                break;
-        }
-        gameStatus.setX(width-sWidth);
-        gameStatus.setY(100*SF);
-        gameStatus.setWrappingWidth(sWidth);
-        gameStatus.setTextAlignment(TextAlignment.CENTER);
-
-        Button btnUndo = new Button("Undo");
-        btnUndo.setScaleX(1.5*SF);
-        btnUndo.setScaleY(1.5*SF);
-        btnUndo.setLayoutX(width - .7*sWidth);
-        btnUndo.setLayoutY(.8*height);
-        btnUndo.setMinWidth(.35*sWidth);
-        btnUndo.setOnAction(actionEvent -> {
-            game.undo();
-            game.draw();
-            updateSidebar(root, sWidth);
-        });
-
-        Button btnNewGame = new Button("New game");
-        btnNewGame.setScaleX(1.5*SF);
-        btnNewGame.setScaleY(1.5*SF);
-        btnNewGame.setLayoutX(width - .7*sWidth);
-        btnNewGame.setLayoutY(.9*height);
-        btnNewGame.setMinWidth(.35*sWidth);
-        btnNewGame.setOnAction(actionEvent -> {
-            game = new Game();
-            stage.setScene(titleScene());
-        });
-
-
-        root.getChildren().addAll(sideBar, gameStatus, btnNewGame, btnUndo);
     }
 
     private Scene getPlayerScene(boolean vsAI, int n){

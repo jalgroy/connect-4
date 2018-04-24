@@ -21,6 +21,7 @@ public class Game {
     private GraphicsContext context;
     private double width;
     private double height;
+    private final int simulationDepth = 5;
 
     public Game(){
         board = new Board(columns,rows);
@@ -48,14 +49,14 @@ public class Game {
     }
 
     public void mouseClicked(double x){
-       if(gameState == GameState.PLAYING){
+        if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI)) {
            int column = (int) (x*columns / width);
            drop(column, false);
        }
     }
 
     public void keyPressed(KeyCode key){
-        if(gameState == GameState.PLAYING) {
+        if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI)) {
             switch (key) {
                 case DIGIT1:
                     drop(0, false);
@@ -102,14 +103,19 @@ public class Game {
             gameState = GameState.DRAW;
         } else{
             turn++;
-            if(!simulation) moveAI();
+            if(!simulation){
+                Thread t = new Thread(() -> {
+                    moveAI();
+                });
+                t.start();
+            }
         }
     }
 
     public void moveAI(){
         IPlayer current = getCurrentPlayer();
         if(current instanceof IAI){
-            int column = ((IAI)current).getMove(this, 5);
+            int column = ((IAI)current).getMove(this, simulationDepth);
             history.add(column);
             board.drop(column, current.getDisc());
             nextTurn(false);
@@ -131,11 +137,13 @@ public class Game {
         // TODO: Falling animation
         context.save();
         context.setFill(Color.WHITE);
-        context.fillRect(0,0,width,height); // Clear slots from previous turn
+        context.fillRect(0,0,width,height);
+        double slotWidth = width / board.getWidth();
+        double slotHeight = height / board.getHeight();
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();
-                board.getSlot(i, j).draw(context, width / board.getWidth(), height / board.getHeight());
+                board.getSlot(i, j).draw(context, slotWidth, slotHeight);
                 context.restore();
             }
         }
@@ -158,6 +166,10 @@ public class Game {
             }
         }
         return circles;
+    }
+
+    public boolean isReady(){
+        return (players.size() == 2 && context != null && width > 0 && height > 0);
     }
 
     public int getColumns() {

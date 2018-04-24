@@ -1,5 +1,6 @@
 package inf101.v18.sem2;
 
+import inf101.v18.sem2.gui.DiscSelector;
 import inf101.v18.sem2.player.AI;
 import inf101.v18.sem2.player.Player;
 import javafx.application.Application;

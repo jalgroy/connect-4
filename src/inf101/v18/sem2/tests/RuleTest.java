@@ -21,5 +21,6 @@ public class RuleTest {
         for (int i = 0; i < board.getWidth(); i++) {
             assertFalse(Rules.isLegalMove(board, i));
         }
+        assertEquals(0, Rules.getLegalMoves(board).size());
     }
 }

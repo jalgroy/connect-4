@@ -1,5 +1,6 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.gui;
 
+import inf101.v18.sem2.Disc;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -8,7 +9,7 @@ public class DiscSelector extends Canvas {
     private int selected;
     private Disc[] discs;
 
-    DiscSelector(double width, double height, Disc[] discs){
+    public DiscSelector(double width, double height, Disc[] discs){
         super(width, height);
         if(discs == null){
             throw new IllegalArgumentException("Disc array cannot be null");

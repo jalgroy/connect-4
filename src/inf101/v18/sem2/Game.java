@@ -88,7 +88,7 @@ public class Game {
             throw new IllegalArgumentException("Invalid column " + column);
         }
         IPlayer player = players.get(turn % 2);
-        if(board.drop(column, player.getDisc())){
+        if(board.add(column, player.getDisc())){
             history.add(column);
             nextTurn(simulation);
         } else {
@@ -117,7 +117,7 @@ public class Game {
         if(current instanceof IAI){
             int column = ((IAI)current).getMove(this, simulationDepth);
             history.add(column);
-            board.drop(column, current.getDisc());
+            board.add(column, current.getDisc());
             nextTurn(false);
         }
     }
@@ -143,7 +143,10 @@ public class Game {
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();
-                board.getSlot(i, j).draw(context, slotWidth, slotHeight);
+                Disc d = board.get(i,j);
+                if(d != null){
+                    d.draw(context, slotWidth*(i + .1), slotHeight*(j+.1), .8*slotWidth, .8*slotHeight);
+                }
                 context.restore();
             }
         }

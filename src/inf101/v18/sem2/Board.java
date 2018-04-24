@@ -1,18 +1,16 @@
 package inf101.v18.sem2;
 
 import inf101.v18.sem2.datastructures.Grid;
-import inf101.v18.sem2.datastructures.Slot;
 
-public class Board {
+public class Board implements IBoard<Disc> {
     private int width;
     private int height;
-    private Grid<Slot> grid;
+    private Grid<Disc> grid;
 
     public Board(int width, int height){
         this.width = width;
         this.height = height;
         grid = new Grid<>(width,height);
-        initGrid();
     }
 
     public Board copy(){
@@ -20,36 +18,27 @@ public class Board {
         b.grid = new Grid<>(width, height);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                b.grid.set(i,j, new Slot(i,j));
-                b.grid.get(i,j).setDisc(this.grid.get(i,j).getDisc());
+                b.grid.set(i,j, grid.get(i,j));
             }
         }
         return b;
     }
     
-    private void initGrid(){
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                grid.set(i,j,new Slot(i,j));
-            }
-        }
-    }
-    
-    public boolean drop(int column, Disc disc){
+    public boolean add(int column, Disc disc){
         int row = -1;
         int i = 0;
-        while (i < height && getSlot(column, i).isEmpty()){
+        while (i < height && grid.get(column, i) == null){
             row = i++;
         }
         if(row == -1) return false;
-        getSlot(column, row).setDisc(disc);
+        grid.set(column, row, disc);
         return true;
     }
 
     public boolean remove(int column){
         for (int i = 0; i < height; i++) {
-            if(getSlot(column, i).getDisc() != null){
-                getSlot(column, i).setDisc(null);
+            if(get(column, i) != null){
+                grid.set(column, i, null);
                 return true;
             }
         }
@@ -64,7 +53,7 @@ public class Board {
         return height;
     }
 
-    public Slot getSlot(int x, int y){
+    public Disc get(int x, int y){
         return grid.get(x,y);
     }
 

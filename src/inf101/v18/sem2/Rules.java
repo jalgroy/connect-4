@@ -5,31 +5,31 @@ import java.util.List;
 
 public class Rules {
     public static boolean isLegalMove(Board board, int column){
-        return board.getSlot(column, 0).isEmpty();
+        return board.get(column, 0) == null;
     }
 
     /**
-     * @param board
+     * @param board - Connect four board
      * @return true if the board has 4 connected pieces
      */
     public static boolean isWin(Board board, int lastMove){
         int x = lastMove;
         int y = 0;
         for (int i = 0; i < board.getHeight(); i++) {
-            if(!board.getSlot(x,i).isEmpty()){
+            if(board.get(x,i) != null){
                 y = i;
                 break;
             }
         }
 
-        Disc disc = board.getSlot(x,y).getDisc();
+        Disc disc = board.get(x,y);
 
         // Horizontal
         int inARow = 1;
         for (int dx = -3; dx <= 3; dx++) {
             if(dx == 0) continue;
             if(x+dx >= 0 && x+dx < board.getWidth()){
-                if(board.getSlot(x+dx,y).getDisc() == disc){
+                if(board.get(x+dx,y) == disc){
                     inARow++;
                 } else {
                     inARow = 1;
@@ -43,7 +43,7 @@ public class Rules {
         for (int dy = -3; dy <= 3; dy++) {
             if(dy == 0) continue;
             if(y+dy >= 0 && y+dy < board.getHeight()){
-                if(board.getSlot(x,y+dy).getDisc() == disc){
+                if(board.get(x,y+dy) == disc){
                     inARow++;
                 } else {
                     inARow = 1;
@@ -57,7 +57,7 @@ public class Rules {
         for (int d = -3; d <= 3; d++) {
             if(d == 0) continue;
             if(x+d >= 0 && x+d < board.getWidth() && y+d >= 0 && y+d < board.getHeight()){
-                if(board.getSlot(x+d,y+d).getDisc() == disc){
+                if(board.get(x+d,y+d) == disc){
                     inARow++;
                 } else {
                     inARow = 1;
@@ -71,7 +71,7 @@ public class Rules {
         for (int d = -3; d <= 3; d++) {
             if(d == 0) continue;
             if(x-d >= 0 && x-d < board.getWidth() && y+d >= 0 && y+d < board.getHeight()){
-                if(board.getSlot(x-d,y+d).getDisc() == disc){
+                if(board.get(x-d,y+d) == disc){
                     inARow++;
                 } else {
                     inARow = 1;
@@ -101,12 +101,12 @@ public class Rules {
 
     public static int countNeighbours(Board board, int x, int y){
         int count = 0;
-        Disc disc = board.getSlot(x,y).getDisc();
+        Disc disc = board.get(x,y);
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
                 if(dx == 0 && dy == 0) continue;
                 if(x+dx >= 0 && x+dx < board.getWidth() && y+dy >= 0 && y+dy < board.getHeight()){
-                    if(board.getSlot(x+dx,y+dy).getDisc() == disc) count++;
+                    if(board.get(x+dx,y+dy) == disc) count++;
                 }
             }
         }
@@ -115,7 +115,7 @@ public class Rules {
 
     public static boolean isDraw(Board board, int lastMove){
         for (int i = 0; i < board.getWidth(); i++) {
-            if(board.getSlot(i,0).isEmpty()) return false;
+            if(board.get(i,0) == null) return false;
         }
         return !isWin(board, lastMove);
     }

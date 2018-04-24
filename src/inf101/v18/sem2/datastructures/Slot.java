@@ -2,7 +2,6 @@ package inf101.v18.sem2.datastructures;
 
 import inf101.v18.sem2.Disc;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 
 public class Slot {

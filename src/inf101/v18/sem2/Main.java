@@ -20,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class Main extends Application {
@@ -102,7 +104,6 @@ public class Main extends Application {
         sideBar.setOnUndo(actionEvent -> game.undo());
         sideBar.setOnNewGame(actionEvent -> {
             animationTimer.stop();
-            animationTimer = null;
             game = new Game();
             stage.setScene(titleScene());
         });
@@ -127,9 +128,11 @@ public class Main extends Application {
             sideBar.update();
         });
 
-        canvas.setOnMousePressed(e -> {
-            game.mouseClicked(e.getX());
-            sideBar.update();
+        gameScene.setOnMousePressed(e -> {
+            if(e.getX() <= gameWidth){
+                game.mouseClicked(e.getX());
+                sideBar.update();
+            }
         });
 
         root.getChildren().add(canvas);

@@ -91,6 +91,14 @@ public class Rules {
         return moves;
     }
 
+    public static int[] getWinLocation(Board board, int lastMove){
+        if(!isWin(board, lastMove)){
+            throw new IllegalStateException("Game is not won");
+        }
+        // TODO
+        return null;
+    }
+
     public static int countNeighbours(Board board, int x, int y){
         int count = 0;
         Disc disc = board.getSlot(x,y).getDisc();

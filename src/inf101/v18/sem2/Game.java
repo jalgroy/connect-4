@@ -138,6 +138,10 @@ public class Game {
                 context.restore();
             }
         }
+        if(gameState == GameState.ONE_WON || gameState == GameState.TWO_WON) {
+            int[] winLocation = Rules.getWinLocation(board, history.get(history.size()-1));
+            // TODO: Mark winning discs (red stroke?)
+        }
         context.restore();
     }
 

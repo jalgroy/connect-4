@@ -80,24 +80,15 @@ public class Main extends Application {
 
         // Numbers
         for (int i = 1; i <= cl; i++) {
-            Rectangle r = new Rectangle(gameWidth/cl, height-gameHeight);
-            r.setX((i-1)*gameWidth/cl);
-            r.setY(0);
-            if(i % 2 == 0){
-                r.setFill(Color.LIGHTGRAY);
-            } else {
-                r.setFill(Color.WHITE.darker());
-            }
-
             Text num = new Text();
             num.setX(i*gameWidth/cl - gameWidth/(2*cl));
             num.setY((height-gameHeight)/2);
             num.setText(Integer.toString(i));
-            num.setFill(Color.BLACK);
+            num.setFill(Color.WHITE);
             num.setScaleX(3*SF);
             num.setScaleY(3*SF);
 
-            root.getChildren().addAll(r, num);
+            root.getChildren().add(num);
         }
 
         updateSidebar(root,width-gameWidth);
@@ -130,8 +121,12 @@ public class Main extends Application {
     }
 
     private void updateSidebar(Group root, double sWidth){
-        Rectangle sideBar = new Rectangle(sWidth, height);
-        sideBar.setX(width-sWidth);
+        double padding = .05*sWidth;
+        Rectangle sideBar = new Rectangle(sWidth - 2*padding, height - 2*padding);
+        sideBar.setX(width-sWidth+padding);
+        sideBar.setY(padding);
+        sideBar.setArcHeight(padding);
+        sideBar.setArcWidth(padding);
         sideBar.setFill(Color.LIGHTGRAY);
 
         Text gameStatus = new Text();
@@ -161,7 +156,7 @@ public class Main extends Application {
         btnUndo.setScaleY(1.5*SF);
         btnUndo.setLayoutX(width - .7*sWidth);
         btnUndo.setLayoutY(.8*height);
-        btnUndo.setMinWidth(.4*sWidth);
+        btnUndo.setMinWidth(.35*sWidth);
         btnUndo.setOnAction(actionEvent -> {
             game.undo();
             game.draw();
@@ -173,7 +168,7 @@ public class Main extends Application {
         btnNewGame.setScaleY(1.5*SF);
         btnNewGame.setLayoutX(width - .7*sWidth);
         btnNewGame.setLayoutY(.9*height);
-        btnNewGame.setMinWidth(.4*sWidth);
+        btnNewGame.setMinWidth(.35*sWidth);
         btnNewGame.setOnAction(actionEvent -> {
             game = new Game();
             stage.setScene(titleScene());

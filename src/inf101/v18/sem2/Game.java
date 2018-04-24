@@ -4,6 +4,8 @@ import inf101.v18.sem2.player.IAI;
 import inf101.v18.sem2.player.IPlayer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +119,9 @@ public class Game {
     public void undo(){
         if(history.size() == 0) return;
         if(board.remove(history.get(history.size()-1))){
-            turn--;
+            if(gameState == GameState.PLAYING){
+                turn--;
+            }
             history.remove(history.size()-1);
             gameState = GameState.PLAYING;
         }
@@ -126,7 +130,8 @@ public class Game {
     public void draw(){
         // TODO: Falling animation
         context.save();
-        context.clearRect(0,0,width,height); // Clear slots from previous turn
+        context.setFill(Color.WHITE);
+        context.fillRect(0,0,width,height); // Clear slots from previous turn
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();
@@ -141,8 +146,26 @@ public class Game {
         context.restore();
     }
 
+    public List<Circle> getClip(){
+        List<Circle> circles = new ArrayList<>();
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getHeight(); j++) {
+                double slotWidth = width / board.getWidth();
+                Circle c = new Circle(.38*slotWidth);
+                c.setCenterX(i*slotWidth + slotWidth/2);
+                c.setCenterY(j*slotWidth + slotWidth/2);
+                circles.add(c);
+            }
+        }
+        return circles;
+    }
+
     public int getColumns() {
         return columns;
+    }
+
+    public int getRows() {
+        return rows;
     }
 
     public Board getBoard() {

@@ -36,10 +36,7 @@ public class Slot {
     }
 
     public void draw(GraphicsContext context, double width, double height){
-        if(disc == null){
-            context.setFill(Color.WHITE);
-            context.fillOval(width*(x+.1), height*(y+.1), .8*width, .8*height);
-        } else {
+        if(disc != null){
             disc.draw(context, width*(x+.1), height*(y+.1), .8*width, .8*height);
         }
     }

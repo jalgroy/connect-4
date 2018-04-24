@@ -1,9 +1,10 @@
 package inf101.v18.sem2.player;
 
-import inf101.v18.sem2.Board;
+import inf101.v18.sem2.datastructures.Board;
 import inf101.v18.sem2.Disc;
 import inf101.v18.sem2.Game;
 import inf101.v18.sem2.Rules;
+import inf101.v18.sem2.datastructures.IBoard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,7 +57,7 @@ public class AI implements IAI {
     }
 
     private int ratePosition(Game g){
-        Board board = g.getBoard();
+        IBoard<Disc> board = g.getBoard();
         int rating = 0;
         if(Rules.isWin(board, g.getLastMove())){
             if(g.getCurrentPlayer().getDisc() == disc){

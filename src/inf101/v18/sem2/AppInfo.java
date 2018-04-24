@@ -15,7 +15,7 @@ public class AppInfo {
 	/**
 	 * Your name.
 	 */
-	public static final String APP_DEVELOPER = "Joakim Algrøy";
+	public static final String APP_DEVELOPER = "Joakim Algrøy (jal043)";
 	/**
 	 * A short description.
 	 */

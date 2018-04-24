@@ -1,11 +1,9 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.datastructures;
 
-import inf101.v18.sem2.datastructures.Grid;
-
-public class Board implements IBoard<Disc> {
+public class Board<T> implements IBoard<T> {
     private int width;
     private int height;
-    private Grid<Disc> grid;
+    private Grid<T> grid;
 
     public Board(int width, int height){
         this.width = width;
@@ -14,7 +12,7 @@ public class Board implements IBoard<Disc> {
     }
 
     public Board copy(){
-        Board b = new Board(width,height);
+        Board<T> b = new Board<>(width,height);
         b.grid = new Grid<>(width, height);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -24,14 +22,14 @@ public class Board implements IBoard<Disc> {
         return b;
     }
     
-    public boolean add(int column, Disc disc){
+    public boolean add(int column, T t){
         int row = -1;
         int i = 0;
         while (i < height && grid.get(column, i) == null){
             row = i++;
         }
         if(row == -1) return false;
-        grid.set(column, row, disc);
+        grid.set(column, row, t);
         return true;
     }
 
@@ -53,7 +51,7 @@ public class Board implements IBoard<Disc> {
         return height;
     }
 
-    public Disc get(int x, int y){
+    public T get(int x, int y){
         return grid.get(x,y);
     }
 

@@ -1,10 +1,13 @@
 package inf101.v18.sem2;
 
+import inf101.v18.sem2.datastructures.Board;
+import inf101.v18.sem2.datastructures.IBoard;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Rules {
-    public static boolean isLegalMove(Board board, int column){
+    public static boolean isLegalMove(IBoard<Disc> board, int column){
         return board.get(column, 0) == null;
     }
 
@@ -12,7 +15,7 @@ public class Rules {
      * @param board - Connect four board
      * @return true if the board has 4 connected pieces
      */
-    public static boolean isWin(Board board, int lastMove){
+    public static boolean isWin(IBoard<Disc> board, int lastMove){
         int x = lastMove;
         int y = 0;
         for (int i = 0; i < board.getHeight(); i++) {
@@ -83,7 +86,7 @@ public class Rules {
         return false;
     }
 
-    public static List<Integer> getLegalMoves(Board board){
+    public static List<Integer> getLegalMoves(IBoard<Disc> board){
         List<Integer> moves = new ArrayList<>();
         for (int i = 0; i < board.getWidth(); i++) {
             if(isLegalMove(board, i)) moves.add(i);
@@ -91,7 +94,7 @@ public class Rules {
         return moves;
     }
 
-    public static int[] getWinLocation(Board board, int lastMove){
+    public static int[] getWinLocation(IBoard<Disc> board, int lastMove){
         if(!isWin(board, lastMove)){
             throw new IllegalStateException("Game is not won");
         }
@@ -99,7 +102,7 @@ public class Rules {
         return null;
     }
 
-    public static int countNeighbours(Board board, int x, int y){
+    public static int countNeighbours(IBoard<Disc> board, int x, int y){
         int count = 0;
         Disc disc = board.get(x,y);
         for (int dx = -1; dx <= 1; dx++) {
@@ -113,7 +116,7 @@ public class Rules {
         return count;
     }
 
-    public static boolean isDraw(Board board, int lastMove){
+    public static boolean isDraw(IBoard<Disc> board, int lastMove){
         for (int i = 0; i < board.getWidth(); i++) {
             if(board.get(i,0) == null) return false;
         }

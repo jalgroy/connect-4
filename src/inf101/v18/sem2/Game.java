@@ -1,5 +1,7 @@
 package inf101.v18.sem2;
 
+import inf101.v18.sem2.datastructures.Board;
+import inf101.v18.sem2.datastructures.IBoard;
 import inf101.v18.sem2.player.IAI;
 import inf101.v18.sem2.player.IPlayer;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,7 +14,7 @@ import java.util.List;
 
 public class Game {
     private GameState gameState;
-    private Board board;
+    private IBoard<Disc> board;
     private List<IPlayer> players; // Datainvariant: size 2
     private int turn;
     private final int columns = 7;
@@ -24,7 +26,7 @@ public class Game {
     private final int simulationDepth = 5;
 
     public Game(){
-        board = new Board(columns,rows);
+        board = new Board<>(columns,rows);
         gameState = GameState.PLAYING;
         turn = 0;
         players = new ArrayList<>();
@@ -183,7 +185,7 @@ public class Game {
         return rows;
     }
 
-    public Board getBoard() {
+    public IBoard getBoard() {
         return board;
     }
 

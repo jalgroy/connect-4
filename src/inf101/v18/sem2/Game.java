@@ -4,7 +4,6 @@ import inf101.v18.sem2.player.IAI;
 import inf101.v18.sem2.player.IPlayer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,8 +130,7 @@ public class Game {
     public void draw(){
         // TODO: Falling animation
         context.save();
-        context.setFill(Color.BLACK);
-        context.fillRect(0, 0, width, height);
+        context.clearRect(0,0,width,height); // Clear slots from previous turn
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();

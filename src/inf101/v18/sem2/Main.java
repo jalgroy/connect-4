@@ -73,29 +73,7 @@ public class Main extends Application {
         double gameWidth = width - 500*SF;
         double gameHeight = height - 50*SF;
 
-        Canvas canvas = new Canvas(gameWidth,gameHeight);
-        canvas.setLayoutY(height - gameHeight);
-        GraphicsContext context = canvas.getGraphicsContext2D();
-
-        game.setContext(context);
-        game.setWidth(gameWidth);
-        game.setHeight(gameHeight);
-
-        gameScene.setOnKeyPressed(e -> {
-            game.keyPressed(e.getCode());
-            game.draw();
-            updateSidebar(root, width-gameWidth);
-        });
-
-        canvas.setOnMousePressed(e -> {
-            game.mouseClicked(e.getX());
-            game.draw();
-            updateSidebar(root, width - gameWidth);
-        });
-
-        game.draw();
-
-        root.getChildren().add(canvas);
+        root.getChildren().add(getBackgroundImage());
 
         int cl = game.getColumns();
 
@@ -122,6 +100,30 @@ public class Main extends Application {
         }
 
         updateSidebar(root,width-gameWidth);
+
+        Canvas canvas = new Canvas(gameWidth,gameHeight);
+        canvas.setLayoutY(height - gameHeight);
+        GraphicsContext context = canvas.getGraphicsContext2D();
+
+        game.setContext(context);
+        game.setWidth(gameWidth);
+        game.setHeight(gameHeight);
+
+        gameScene.setOnKeyPressed(e -> {
+            game.keyPressed(e.getCode());
+            game.draw();
+            updateSidebar(root, width-gameWidth);
+        });
+
+        canvas.setOnMousePressed(e -> {
+            game.mouseClicked(e.getX());
+            game.draw();
+            updateSidebar(root, width - gameWidth);
+        });
+
+        game.draw();
+
+        root.getChildren().addAll(canvas);
 
         return gameScene;
     }

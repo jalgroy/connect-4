@@ -136,10 +136,7 @@ public class Main extends Application {
             case PLAYING:
                 gameStatus.setText(game.getCurrentPlayer().getName() + "'s turn");
                 break;
-            case ONE_WON:
-                gameStatus.setText(game.getCurrentPlayer().getName() + " won!");
-                break;
-            case TWO_WON:
+            case WIN:
                 gameStatus.setText(game.getCurrentPlayer().getName() + " won!");
                 break;
             case DRAW:

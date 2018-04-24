@@ -95,11 +95,7 @@ public class Game {
 
     private void nextTurn(boolean simulation){
         if(Rules.isWin(board, history.get(history.size()-1))){
-            if(turn % 2 == 0){
-                gameState = GameState.ONE_WON;
-            } else {
-                gameState = GameState.TWO_WON;
-            }
+            gameState = GameState.WIN;
         } else if(Rules.isDraw(board, history.get(history.size()-1))) {
             gameState = GameState.DRAW;
         } else{
@@ -138,7 +134,7 @@ public class Game {
                 context.restore();
             }
         }
-        if(gameState == GameState.ONE_WON || gameState == GameState.TWO_WON) {
+        if(gameState == GameState.WIN) {
             int[] winLocation = Rules.getWinLocation(board, history.get(history.size()-1));
             // TODO: Mark winning discs (red stroke?)
         }

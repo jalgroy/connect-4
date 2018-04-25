@@ -23,7 +23,7 @@ public class Game {
     private GraphicsContext context;
     private double width;
     private double height;
-    private final int simulationDepth = 5;
+    private final int simulationDepth = 6;
     private FallingDisc fallingDisc;
 
     public Game(){
@@ -52,14 +52,14 @@ public class Game {
     }
 
     public void mouseClicked(double x){
-        if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI)) {
+        if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI) && fallingDisc == null) {
            int column = (int) (x*columns / width);
            drop(column, false);
        }
     }
 
     public void keyPressed(KeyCode key){
-        if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI)) {
+        if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI) && fallingDisc == null) {
             switch (key) {
                 case DIGIT1:
                     drop(0, false);

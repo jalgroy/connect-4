@@ -10,6 +10,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.awt.*;
+
 public class SideBar extends Group {
     private Game game;
     private double width;
@@ -19,6 +21,7 @@ public class SideBar extends Group {
 
     private Rectangle sideBar;
     private Text gameStatus;
+    private Canvas currentDisc;
     private Button btnUndo;
     private Button btnNewGame;
 
@@ -70,7 +73,12 @@ public class SideBar extends Group {
         gameStatus.setY(100*SF);
         gameStatus.setWrappingWidth(sidebarWidth);
         gameStatus.setTextAlignment(TextAlignment.CENTER);
+
+
+
         update();
+
+
 
         btnUndo = new Button("Undo");
         btnUndo.setScaleX(1.5*SF);

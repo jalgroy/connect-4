@@ -5,6 +5,10 @@ public class Board<T> implements IBoard<T> {
     private int height;
     private Grid<T> grid;
 
+    /**
+     * @param width Columns on the board
+     * @param height Rows on the board
+     */
     public Board(int width, int height){
         this.width = width;
         this.height = height;

@@ -47,7 +47,7 @@ public class AI implements IAI {
         g.addPlayer(new AI("sim2", game.getPlayer(0).getDisc()));
         g.drop(move, true);
         int rating = 0;
-        rating += ratePosition(g);
+        rating += depth*ratePosition(g);
         if(depth > 1 && rating < 500){
             int nextMove = ((AI) g.getCurrentPlayer()).getMove(g,depth-1);
             g.drop(nextMove, true);

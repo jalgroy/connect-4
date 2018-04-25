@@ -11,7 +11,7 @@ public class Board<T> implements IBoard<T> {
         grid = new Grid<>(width,height);
     }
 
-    public Board copy(){
+    public IBoard copy(){
         Board<T> b = new Board<>(width,height);
         b.grid = new Grid<>(width, height);
         for (int i = 0; i < width; i++) {

@@ -24,6 +24,7 @@ public class Game {
     private double width;
     private double height;
     private final int simulationDepth = 5;
+    private FallingDisc fallingDisc;
 
     public Game(){
         board = new Board<>(columns,rows);
@@ -90,9 +91,16 @@ public class Game {
             throw new IllegalArgumentException("Invalid column " + column);
         }
         IPlayer player = players.get(turn % 2);
-        if(board.add(column, player.getDisc())){
-            history.add(column);
-            nextTurn(simulation);
+        if(Rules.isLegalMove(board, column)){
+            if(!simulation){
+                int row = Rules.getRow(board, column);
+                fallingDisc = new FallingDisc(player.getDisc(), column,
+                        (column+.1)*width/board.getWidth(), 0, (row+.1)*height/board.getHeight());
+            } else {
+                board.add(column, player.getDisc());
+                history.add(column);
+                nextTurn(true);
+            }
         } else {
             System.out.println("Invalid drop.");
         }
@@ -114,13 +122,11 @@ public class Game {
         }
     }
 
-    public void moveAI(){
+    private void moveAI(){
         IPlayer current = getCurrentPlayer();
         if(current instanceof IAI){
             int column = ((IAI)current).getMove(this, simulationDepth);
-            history.add(column);
-            board.add(column, current.getDisc());
-            nextTurn(false);
+            drop(column, false);
         }
     }
 
@@ -135,13 +141,30 @@ public class Game {
         }
     }
 
+    public void step(){
+        if(fallingDisc != null){
+            fallingDisc.step();
+            if(fallingDisc.hasLanded()){
+                board.add(fallingDisc.getColumn(), fallingDisc.getDisc());
+                history.add(fallingDisc.getColumn());
+                fallingDisc = null;
+                nextTurn(false);
+            }
+        }
+
+    }
+
     public void draw(){
-        // TODO: Falling animation
         context.save();
         context.setFill(Color.WHITE);
         context.fillRect(0,0,width,height);
         double slotWidth = width / board.getWidth();
         double slotHeight = height / board.getHeight();
+
+        if(fallingDisc != null){
+            fallingDisc.draw(context,.8*slotWidth, .8*slotHeight);
+        }
+
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();

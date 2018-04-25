@@ -122,4 +122,16 @@ public class Rules {
         }
         return !isWin(board, lastMove);
     }
+
+    public static int getRow(IBoard<Disc> board, int column){
+        int row = -1;
+        int i = 0;
+        while (i < board.getHeight() && board.get(column, i) == null){
+            row = i++;
+        }
+        if(row == -1){
+            throw new IllegalArgumentException("Illegal move");
+        }
+        return row;
+    }
 }

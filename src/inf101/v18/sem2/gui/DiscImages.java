@@ -6,11 +6,11 @@ import javafx.scene.image.Image;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GUI {
+public class DiscImages {
     private static Map<Disc, Image> discImages = generateDiscImages();
 
-    public static Map<Disc, Image> getDiscImages(){
-        return discImages;
+    public static Image get(Disc disc){
+        return discImages.get(disc);
     }
 
     private static Map<Disc, Image> generateDiscImages(){

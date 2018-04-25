@@ -11,6 +11,7 @@ public class Board<T> implements IBoard<T> {
         grid = new Grid<>(width,height);
     }
 
+    @Override
     public IBoard copy(){
         Board<T> b = new Board<>(width,height);
         b.grid = new Grid<>(width, height);
@@ -21,7 +22,8 @@ public class Board<T> implements IBoard<T> {
         }
         return b;
     }
-    
+
+    @Override
     public boolean add(int column, T t){
         int row = -1;
         int i = 0;
@@ -33,6 +35,7 @@ public class Board<T> implements IBoard<T> {
         return true;
     }
 
+    @Override
     public boolean remove(int column){
         for (int i = 0; i < height; i++) {
             if(get(column, i) != null){
@@ -43,14 +46,17 @@ public class Board<T> implements IBoard<T> {
         return false;
     }
 
+    @Override
     public int getWidth(){
         return width;
     }
 
+    @Override
     public int getHeight(){
         return height;
     }
 
+    @Override
     public T get(int x, int y){
         return grid.get(x,y);
     }

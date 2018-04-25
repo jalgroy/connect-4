@@ -1,6 +1,6 @@
 package inf101.v18.sem2;
 
-import inf101.v18.sem2.gui.GUI;
+import inf101.v18.sem2.gui.DiscImages;
 import javafx.scene.canvas.GraphicsContext;
 
 public enum Disc {
@@ -11,7 +11,7 @@ public enum Disc {
     JUPITER;
 
     public void draw(GraphicsContext context, double x, double y, double width, double height){
-        context.drawImage(GUI.getDiscImages().get(this), x, y, width, height);
+        context.drawImage(DiscImages.get(this), x, y, width, height);
     }
 
     public static Disc[] nonReservedValues(){

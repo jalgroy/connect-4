@@ -4,13 +4,13 @@ import inf101.v18.sem2.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.awt.*;
 
 public class SideBar extends Group {
     private Game game;
@@ -21,7 +21,7 @@ public class SideBar extends Group {
 
     private Rectangle sideBar;
     private Text gameStatus;
-    private Canvas currentDisc;
+    private Canvas canvas;
     private Button btnUndo;
     private Button btnNewGame;
 
@@ -47,6 +47,7 @@ public class SideBar extends Group {
                 gameStatus.setText("It's a draw!");
                 break;
         }
+        game.getCurrentPlayer().getDisc().draw(canvas.getGraphicsContext2D(), .3*sidebarWidth,.3*height, .4*sidebarWidth, .4*sidebarWidth);
     }
 
     public void setOnUndo(EventHandler<ActionEvent> eventHandler){
@@ -74,11 +75,10 @@ public class SideBar extends Group {
         gameStatus.setWrappingWidth(sidebarWidth);
         gameStatus.setTextAlignment(TextAlignment.CENTER);
 
-
-
+        canvas = new Canvas(sidebarWidth, height);
+        canvas.setLayoutX(width - sidebarWidth);
+        canvas.setLayoutY(0);
         update();
-
-
 
         btnUndo = new Button("Undo");
         btnUndo.setScaleX(1.5*SF);
@@ -101,6 +101,6 @@ public class SideBar extends Group {
         });
 
 
-        getChildren().addAll(sideBar, gameStatus, btnNewGame, btnUndo);
+        getChildren().addAll(sideBar, gameStatus, canvas, btnNewGame, btnUndo);
     }
 }

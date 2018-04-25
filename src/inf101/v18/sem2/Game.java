@@ -23,7 +23,7 @@ public class Game {
     private GraphicsContext context;
     private double width;
     private double height;
-    private final int simulationDepth = 6;
+    private final int simulationDepth = 5;
     private FallingDisc fallingDisc;
 
     public Game(){
@@ -238,5 +238,13 @@ public class Game {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }

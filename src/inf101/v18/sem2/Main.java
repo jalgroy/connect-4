@@ -123,13 +123,11 @@ public class Main extends Application {
 
         gameScene.setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());
-            sideBar.update();
         });
 
         gameScene.setOnMousePressed(e -> {
             if(e.getX() <= gameWidth){
                 game.mouseClicked(e.getX());
-                sideBar.update();
             }
         });
 

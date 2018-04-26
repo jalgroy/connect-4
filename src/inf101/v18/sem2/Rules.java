@@ -1,6 +1,5 @@
 package inf101.v18.sem2;
 
-import inf101.v18.sem2.datastructures.Board;
 import inf101.v18.sem2.datastructures.IBoard;
 
 import java.util.ArrayList;
@@ -116,6 +115,12 @@ public class Rules {
         return count;
     }
 
+    /**
+     * Check if given board is a draw (full with no winner)
+     * @param board
+     * @param lastMove Previous move made
+     * @return true if board is a draw
+     */
     public static boolean isDraw(IBoard<Disc> board, int lastMove){
         for (int i = 0; i < board.getWidth(); i++) {
             if(board.get(i,0) == null) return false;
@@ -123,6 +128,12 @@ public class Rules {
         return !isWin(board, lastMove);
     }
 
+    /**
+     * Get the last available row in given column
+     * @param board
+     * @param column
+     * @return Last available row (from the top)
+     */
     public static int getRow(IBoard<Disc> board, int column){
         int row = -1;
         int i = 0;

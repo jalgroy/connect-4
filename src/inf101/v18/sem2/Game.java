@@ -108,6 +108,7 @@ public class Game {
     private void nextTurn(boolean simulation){
         if(Rules.isWin(board, history.get(history.size()-1))){
             gameState = GameState.WIN;
+            //if(!simulation) System.out.println(history);
         } else if(Rules.isDraw(board, history.get(history.size()-1))) {
             gameState = GameState.DRAW;
         } else{

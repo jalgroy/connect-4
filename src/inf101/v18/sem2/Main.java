@@ -7,6 +7,7 @@ import inf101.v18.sem2.player.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -117,7 +118,7 @@ public class Main extends Application {
         game.setHeight(gameHeight);
 
         Group clip = new Group();
-        List<Circle> circles = game.getClip();
+        List<Node> circles = game.getClip();
         clip.getChildren().addAll(circles);
         canvas.setClip(clip);
 

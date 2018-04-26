@@ -8,6 +8,10 @@ public class Grid<T> implements IGrid<T> {
     private int height;
     private T[][] arr;
 
+    /**
+     * @param width Columns
+     * @param height Rows
+     */
     @SuppressWarnings("unchecked")
     public Grid(int width, int height){
         this.width = width;

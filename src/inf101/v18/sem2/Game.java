@@ -4,6 +4,7 @@ import inf101.v18.sem2.datastructures.Board;
 import inf101.v18.sem2.datastructures.IBoard;
 import inf101.v18.sem2.player.IAI;
 import inf101.v18.sem2.player.IPlayer;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -28,6 +29,9 @@ public class Game {
     private double height;
     private FallingDisc fallingDisc;
 
+    /**
+     * New Game without players
+     */
     public Game(){
         board = new Board<>(columns,rows);
         gameState = GameState.PLAYING;
@@ -36,6 +40,10 @@ public class Game {
         history = new ArrayList<>();
     }
 
+    /**
+     * Deep copy of game in its current state. Does not copy players or graphics-related properties.
+     * @return Copy of game
+     */
     public Game copy(){
         Game g = new Game();
         g.board = board.copy();
@@ -43,7 +51,16 @@ public class Game {
         return g;
     }
 
+    /**
+     * Add player to game. Checks if name or disc is taken before adding.
+     * @param player Player to add
+     * @return True if successful
+     * @throws IllegalStateException If game already has two players
+     */
     public boolean addPlayer(IPlayer player){
+        if(players.size() > 1){
+            throw new IllegalStateException("Game already has two players");
+        }
         for(IPlayer p : players){
             if(p.getName().equals(player.getName()) || p.getDisc() == player.getDisc()){
                 return false;
@@ -53,6 +70,10 @@ public class Game {
         return true;
     }
 
+    /**
+     * Handle a mouse click.
+     * @param x x-position of click
+     */
     public void mouseClicked(double x){
         if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI) && fallingDisc == null) {
            int column = (int) (x*columns / width);
@@ -60,6 +81,10 @@ public class Game {
        }
     }
 
+    /**
+     * Handle a key press.
+     * @param key Key that was pressed
+     */
     public void keyPressed(KeyCode key){
         if(gameState == GameState.PLAYING && !(getCurrentPlayer() instanceof IAI) && fallingDisc == null) {
             switch (key) {
@@ -88,9 +113,14 @@ public class Game {
         }
     }
 
-    public void drop(int column, boolean simulation){
+    /**
+     * Drop disc in
+     * @param column
+     * @param simulation
+     */
+    public void drop(int column, boolean simulation) throws IllegalArgumentException {
         if(column < 0 || column >= columns){
-            throw new IllegalArgumentException("Invalid column " + column);
+            throw new IndexOutOfBoundsException("Invalid column " + column);
         }
         IPlayer player = players.get(turn % 2);
         if(Rules.isLegalMove(board, column)){
@@ -125,6 +155,9 @@ public class Game {
         }
     }
 
+    /**
+     * Trigger an AI move if it's an AI's turn
+     */
     private void moveAI(){
         IPlayer current = getCurrentPlayer();
         if(current instanceof IAI){
@@ -133,6 +166,9 @@ public class Game {
         }
     }
 
+    /**
+     * Undo previous move
+     */
     public void undo(){
         if(history.size() == 0) return;
         if(board.remove(history.get(history.size()-1))){
@@ -157,6 +193,9 @@ public class Game {
         }
     }
 
+    /**
+     * Draw game in it's current state
+     */
     public void draw(){
         context.save();
         context.setFill(Color.WHITE);
@@ -184,68 +223,113 @@ public class Game {
         context.restore();
     }
 
-    public List<Circle> getClip(){
-        List<Circle> circles = new ArrayList<>();
+    /**
+     * @return JavaFX nodes that can act as a mask for how the game is drawn.
+     */
+    public List<Node> getClip(){
+        List<Node> clip = new ArrayList<>();
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 double slotWidth = width / board.getWidth();
                 Circle c = new Circle(.38*slotWidth);
                 c.setCenterX(i*slotWidth + slotWidth/2);
                 c.setCenterY(j*slotWidth + slotWidth/2);
-                circles.add(c);
+                clip.add(c);
             }
         }
-        return circles;
+        return clip;
     }
 
-    public boolean isReady(){
-        return (players.size() == 2 && context != null && width > 0 && height > 0);
-    }
-
+    /**
+     * @return Columns in game board
+     */
     public int getColumns() {
         return columns;
     }
 
+    /**
+     * @return Rows in game board
+     */
     public int getRows() {
         return rows;
     }
 
+    /**
+     * @return Board
+     */
     public IBoard getBoard() {
         return board;
     }
 
+    /**
+     * @return Game state
+     */
     public GameState getState(){
         return gameState;
     }
 
-    public IPlayer getPlayer(int i){
-        return players.get(i);
+    /**
+     * Get player number n
+     * @param n
+     * @return Player at index n
+     * @throws IllegalStateException If requested player has not yet been added to game
+     */
+    public IPlayer getPlayer(int n){
+        if(n < 0 || n > 1){
+            throw new IndexOutOfBoundsException("" + n);
+        }
+        if(players.size() < n+1){
+            throw new IllegalStateException("Player has not been initialized yet");
+        }
+        return players.get(n);
     }
 
+    /**
+     * @return Player whose turn it is
+     */
     public IPlayer getCurrentPlayer(){
         return players.get(turn % 2);
     }
 
+    /**
+     * @return Previous move made in game
+     */
     public int getLastMove(){
         return history.get(history.size()-1);
     }
 
+    /**
+     * Set Grapics Context used to draw game.
+     * @param context GraphicsContext
+     */
     public void setContext(GraphicsContext context) {
         this.context = context;
     }
 
+    /**
+     * @param width Game width in pixels
+     */
     public void setWidth(double width) {
         this.width = width;
     }
 
+    /**
+     * @param height Game height in pixels
+     */
     public void setHeight(double height) {
         this.height = height;
     }
 
+    /**
+     * @return Width
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     * @return Height
+     */
     public double getHeight() {
         return height;
     }

@@ -132,16 +132,13 @@ public class Rules {
      * Get the last available row in given column
      * @param board
      * @param column
-     * @return Last available row (from the top)
+     * @return Last available row (from the top), -1 if no available rows.
      */
     public static int getRow(IBoard<Disc> board, int column){
         int row = -1;
         int i = 0;
         while (i < board.getHeight() && board.get(column, i) == null){
             row = i++;
-        }
-        if(row == -1){
-            throw new IllegalArgumentException("Illegal move");
         }
         return row;
     }

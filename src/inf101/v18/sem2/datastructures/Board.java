@@ -1,5 +1,7 @@
 package inf101.v18.sem2.datastructures;
 
+import java.util.Objects;
+
 public class Board<T> implements IBoard<T> {
     private int width;
     private int height;
@@ -16,7 +18,7 @@ public class Board<T> implements IBoard<T> {
     }
 
     @Override
-    public IBoard copy(){
+    public Board copy(){
         Board<T> b = new Board<>(width,height);
         b.grid = new Grid<>(width, height);
         for (int i = 0; i < width; i++) {
@@ -65,4 +67,18 @@ public class Board<T> implements IBoard<T> {
         return grid.get(x,y);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board<?> board = (Board<?>) o;
+        return width == board.width &&
+                height == board.height &&
+                grid.equals(board.grid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, grid);
+    }
 }

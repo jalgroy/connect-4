@@ -12,10 +12,13 @@ import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Connect four game
+ */
 public class Game {
     private GameState gameState;
     private IBoard<Disc> board;
-    private List<IPlayer> players; // Datainvariant: size 2
+    private List<IPlayer> players;
     private int turn;
     private final int columns = 7;
     private final int rows = 6;

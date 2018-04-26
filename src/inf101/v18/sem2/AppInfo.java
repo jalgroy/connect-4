@@ -28,7 +28,8 @@ public class AppInfo {
 			"Earth, Moon and Mars graphic by hameed (hameed.deviantart.com) (CC Attribution)",
 			"Jupiter image by NASA (svs.gsfc.nasa.gov, public domain)",
 			"Milky Way image by FelixMittermeier @ pixabay (CC0)",
-			"Techniques for falling animation borrowed from inf101.v18.lab1"
+			"Techniques for falling animation borrowed from inf101.v18.lab1",
+			"Used IGenerator and modeled some of my tests on inf101.v18.lab5"
 			);
 	/**
 	 * Help text. Could be used for an in-game help page, perhaps.

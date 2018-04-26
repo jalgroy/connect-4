@@ -150,8 +150,8 @@ public class Game {
                 fallingDisc = null;
                 nextTurn(false);
             }
+            draw();
         }
-
     }
 
     public void draw(){

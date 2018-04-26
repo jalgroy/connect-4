@@ -133,13 +133,14 @@ public class Main extends Application {
 
         root.getChildren().add(canvas);
 
+        game.draw();
+
         animationTimer = new AnimationTimer() {
             private long lastUpdate = 0;
             @Override
             public void handle(long now) {
                 if(now - lastUpdate >= 16_666_666L){
                     game.step();
-                    game.draw();
                     sideBar.update();
                     lastUpdate = now;
                 }

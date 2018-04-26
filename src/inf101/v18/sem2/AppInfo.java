@@ -27,7 +27,8 @@ public class AppInfo {
 			"HAL 9000 red eye graphic by Cryteria @ Wikimedia (CC BY 3.0)",
 			"Earth, Moon and Mars graphic by hameed (hameed.deviantart.com) (CC Attribution)",
 			"Jupiter image by NASA (svs.gsfc.nasa.gov, public domain)",
-			"Milky Way image by FelixMittermeier @ pixabay (CC0)"
+			"Milky Way image by FelixMittermeier @ pixabay (CC0)",
+			"Techniques for falling animation borrowed from inf101.v18.lab1"
 			);
 	/**
 	 * Help text. Could be used for an in-game help page, perhaps.

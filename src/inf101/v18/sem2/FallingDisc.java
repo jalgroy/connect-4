@@ -10,7 +10,7 @@ public class FallingDisc {
     private double targetY;
     private double dy = 0;
     private boolean landed = false;
-    private final double G = 0.981;
+    private final double G = 98.1;
 
     FallingDisc(Disc disc, int column, double x, double y, double targetY){
         this.disc = disc;
@@ -22,7 +22,7 @@ public class FallingDisc {
 
     public void step(){
         if(!landed){
-            dy += 2*G;
+            dy += G / 60; // Because step() is called 60 times a sec (I don't know physics)
             y += dy;
             if(y >= targetY){
                 y = targetY;

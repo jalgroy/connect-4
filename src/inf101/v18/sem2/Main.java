@@ -2,7 +2,7 @@ package inf101.v18.sem2;
 
 import inf101.v18.sem2.gui.DiscSelector;
 import inf101.v18.sem2.gui.SideBar;
-import inf101.v18.sem2.player.AI;
+import inf101.v18.sem2.player.HAL;
 import inf101.v18.sem2.player.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -137,7 +137,7 @@ public class Main extends Application {
             private long lastUpdate = 0;
             @Override
             public void handle(long now) {
-                if(now - lastUpdate >= 16_666_666){
+                if(now - lastUpdate >= 16_666_666L){
                     game.step();
                     game.draw();
                     sideBar.update();
@@ -222,7 +222,7 @@ public class Main extends Application {
             }
             if(n == 1){
                 if(vsAI){
-                    game.addPlayer(new AI());
+                    game.addPlayer(new HAL());
                     stage.setScene(gameScene());
                 }else {
                     stage.setScene(getPlayerScene(false, 2));

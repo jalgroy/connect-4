@@ -23,7 +23,6 @@ public class Game {
     private GraphicsContext context;
     private double width;
     private double height;
-    private final int simulationDepth = 5;
     private FallingDisc fallingDisc;
 
     public Game(){
@@ -125,7 +124,7 @@ public class Game {
     private void moveAI(){
         IPlayer current = getCurrentPlayer();
         if(current instanceof IAI){
-            int column = ((IAI)current).getMove(this, simulationDepth);
+            int column = ((IAI)current).getMove(this);
             drop(column, false);
         }
     }
@@ -164,13 +163,12 @@ public class Game {
         if(fallingDisc != null){
             fallingDisc.draw(context,.8*slotWidth, .8*slotHeight);
         }
-
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
                 context.save();
-                Disc d = board.get(i,j);
-                if(d != null){
-                    d.draw(context, slotWidth*(i + .1), slotHeight*(j+.1), .8*slotWidth, .8*slotHeight);
+                Disc d = board.get(i, j);
+                if (d != null) {
+                    d.draw(context, slotWidth * (i + .1), slotHeight * (j + .1), .8 * slotWidth, .8 * slotHeight);
                 }
                 context.restore();
             }

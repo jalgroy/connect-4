@@ -9,6 +9,25 @@ import java.util.Random;
  * @param <T> The type of data generated.
  */
 public interface IGenerator<T> {
+
+	/**
+	 * Generate a random object.
+	 *
+	 * @param r A random generator
+	 * @return An object of type T
+	 */
+	T generate(Random r);
+
+	/**
+	 * Generate a number of equal objects.
+	 *
+	 * @param r A random generator
+	 * @param n The number of objects to generate.
+	 * @return A list of objects, with the property that for any two objects a,b in the collection a.equals(b).
+	 *
+	 */
+	List<T> generateEquals(Random r, int n);
+
 	/**
 	 * Generate a number of equal objects.
 	 * 

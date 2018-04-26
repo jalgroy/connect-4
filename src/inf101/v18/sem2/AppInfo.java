@@ -29,7 +29,7 @@ public class AppInfo {
 			"Jupiter image by NASA (svs.gsfc.nasa.gov, public domain)",
 			"Milky Way image by FelixMittermeier @ pixabay (CC0)",
 			"Techniques for falling animation borrowed from inf101.v18.lab1",
-			"Used IGenerator and modeled some of my tests on inf101.v18.lab5"
+			"Used IGenerator from inf101.v18.lab5, and modeled some of my tests on it"
 			);
 	/**
 	 * Help text. Could be used for an in-game help page, perhaps.

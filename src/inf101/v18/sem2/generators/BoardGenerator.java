@@ -2,52 +2,60 @@ package inf101.v18.sem2.generators;
 
 import inf101.v18.sem2.datastructures.Board;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class BoardGenerator<T> implements IGenerator<Board> {
-    int minWidth;
-    int minHeight;
-    int maxWidth;
-    int maxHeight;
-    IGenerator<T> tGenerator;
-    Random random = new Random();
+    private int maxWidth;
+    private int maxHeight;
+    private IGenerator<T> tGenerator;
+    private Random random = new Random();
 
-    public BoardGenerator(int minW, int minH, int maxW, int maxH, IGenerator<T> tGenerator){
-        if(minW < 1 || minH < 1 || maxW < minW || maxH < minH){
+    /**
+     * @param maxWidth Inclusive
+     * @param maxHeight Inclusive
+     * @param tGenerator Generator for objects to put in board
+     */
+    public BoardGenerator(int maxWidth, int maxHeight, IGenerator<T> tGenerator){
+        if(maxWidth < 1 || maxHeight < 1){
             throw new IllegalArgumentException(
-                    String.format("Illegal bounds minW: %d, minH: %d, maxW: %d, maxH: %d%n", minW, minH, maxW, maxH)
+                    String.format("Illegal bounds maxWidth: %d, maxHeight: %d%n", maxWidth, maxHeight)
             );
         }
-        this.minWidth = minW;
-        this.minHeight = minH;
-        this.maxWidth = maxW;
-        this.maxHeight = maxH;
+        this.maxWidth = maxWidth;
+        this.maxHeight = maxHeight;
         this.tGenerator = tGenerator;
-    }
-
-    public BoardGenerator(int width, int height){
-        if(width < 1 || height < 1){
-            throw new IllegalArgumentException("Illegal dimensions - width: " + width + ", height: " + height);
-        }
-        this.minWidth = width;
-        this.maxWidth = width;
-        this.minHeight = height;
-        this.maxHeight = height;
     }
 
     @Override
     public List<Board> generateEquals(int n) {
-        return null;
+        return generateEquals(random, n);
+    }
+
+    @Override
+    public List<Board> generateEquals(Random r, int n) {
+        long seed = r.nextLong();
+        Random seededRandom = new Random(seed);
+        List<Board> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(generate(seededRandom));
+        }
+        return list;
     }
 
     @Override
     public Board generate() {
-        int width = random.nextInt(maxWidth+1 - minWidth) + minWidth;
-        int heigth = random.nextInt(maxWidth+1 - minWidth) + minWidth;
+        return generate(random);
+    }
+
+    @Override
+    public Board generate(Random r) {
+        int width = r.nextInt(maxWidth) + 1;
+        int heigth = r.nextInt(maxHeight) + 1;
         Board<T> board = new Board<>(width, heigth);
         for (int i = 0; i < width; i++) {
-            int columnHeight = random.nextInt(board.getHeight());
+            int columnHeight = r.nextInt(board.getHeight());
             for (int j = 0; j < columnHeight; j++) {
                 board.add(i, tGenerator.generate());
             }

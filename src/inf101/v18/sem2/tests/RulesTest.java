@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RulesTest {
     private IGenerator<Disc> discGen = new DiscGenerator();
-    private IGenerator<Board> boardGen = new BoardGenerator<>(1,1,10,10, discGen);
+    private IGenerator<Board> boardGen = new BoardGenerator<>(10,10, discGen);
     private final int N = 1000;
 
     // Known sets of moves that leads to a win in a 2-player connect four game

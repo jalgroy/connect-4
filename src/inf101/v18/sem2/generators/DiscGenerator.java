@@ -11,8 +11,13 @@ public class DiscGenerator implements IGenerator<Disc> {
 
     @Override
     public List<Disc> generateEquals(int n) {
+        return generateEquals(random, n);
+    }
+
+    @Override
+    public List<Disc> generateEquals(Random r, int n) {
         List<Disc> list = new ArrayList<>();
-        int index = random.nextInt(Disc.values().length);
+        int index = r.nextInt(Disc.values().length);
         Disc d = Disc.values()[index];
         for (int i = 0; i < n; i++) {
             list.add(d);
@@ -22,7 +27,12 @@ public class DiscGenerator implements IGenerator<Disc> {
 
     @Override
     public Disc generate() {
-        int i = random.nextInt(Disc.values().length);
+        return generate(random);
+    }
+
+    @Override
+    public Disc generate(Random r) {
+        int i = r.nextInt(Disc.values().length);
         return Disc.values()[i];
     }
 }

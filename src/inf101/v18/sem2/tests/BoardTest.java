@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
     private IGenerator<Disc> discGen = new DiscGenerator();
-    private IGenerator<Board> boardGen = new BoardGenerator<>(1,1,100,100, discGen);
+    private IGenerator<Board> boardGen = new BoardGenerator<>(100,100, discGen);
     private final int N = 10000;
 
     @Test
@@ -36,14 +36,23 @@ public class BoardTest {
         Board<Disc> board;
         for (int i = 0; i < N; i++) {
             board = boardGen.generate();
-            Board<Disc> copy = board.copy();
+            Board copy = board.copy();
             for (int j = 0; j < board.getWidth(); j++) {
                 if(Rules.isLegalMove(board, j)){
                     board.add(j, discGen.generate());
                     board.remove(j);
                 }
             }
-            assertTrue(copy.equals(board));
+            assertEquals(copy, board);
+        }
+    }
+
+    @Test
+    void copyTest(){
+        for (int i = 0; i < N; i++) {
+            Board board = boardGen.generate();
+            Board copy = board.copy();
+            assertEquals(board, copy);
         }
     }
 }

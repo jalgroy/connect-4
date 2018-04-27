@@ -1,8 +1,8 @@
 package inf101.v18.sem2.player;
 
-import inf101.v18.sem2.Disc;
-import inf101.v18.sem2.Game;
-import inf101.v18.sem2.Rules;
+import inf101.v18.sem2.game.objects.Disc;
+import inf101.v18.sem2.game.Game;
+import inf101.v18.sem2.game.Rules;
 import inf101.v18.sem2.datastructures.IBoard;
 
 import java.util.ArrayList;

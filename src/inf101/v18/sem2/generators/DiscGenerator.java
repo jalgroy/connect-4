@@ -1,6 +1,6 @@
 package inf101.v18.sem2.generators;
 
-import inf101.v18.sem2.Disc;
+import inf101.v18.sem2.game.objects.Disc;
 
 import java.util.ArrayList;
 import java.util.List;

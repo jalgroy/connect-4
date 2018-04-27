@@ -1,6 +1,6 @@
 package inf101.v18.sem2.gui;
 
-import inf101.v18.sem2.Disc;
+import inf101.v18.sem2.game.objects.Disc;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;

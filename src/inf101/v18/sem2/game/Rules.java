@@ -1,5 +1,6 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.game;
 
+import inf101.v18.sem2.game.objects.Disc;
 import inf101.v18.sem2.datastructures.IBoard;
 
 import java.util.ArrayList;

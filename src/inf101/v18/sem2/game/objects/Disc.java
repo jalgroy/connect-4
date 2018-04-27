@@ -1,4 +1,4 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.game.objects;
 
 import inf101.v18.sem2.gui.DiscImages;
 import javafx.scene.canvas.GraphicsContext;

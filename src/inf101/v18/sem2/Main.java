@@ -1,5 +1,7 @@
 package inf101.v18.sem2;
 
+import inf101.v18.sem2.game.Game;
+import inf101.v18.sem2.game.objects.Disc;
 import inf101.v18.sem2.gui.DiscSelector;
 import inf101.v18.sem2.gui.SideBar;
 import inf101.v18.sem2.player.HAL;
@@ -16,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;

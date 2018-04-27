@@ -1,6 +1,6 @@
 package inf101.v18.sem2.tests;
 
-import inf101.v18.sem2.Disc;
+import inf101.v18.sem2.game.objects.Disc;
 import inf101.v18.sem2.datastructures.Grid;
 import inf101.v18.sem2.generators.DiscGenerator;
 import inf101.v18.sem2.generators.GridGenerator;

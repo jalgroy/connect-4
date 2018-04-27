@@ -1,8 +1,8 @@
 package inf101.v18.sem2.tests;
 
 import inf101.v18.sem2.datastructures.Board;
-import inf101.v18.sem2.Disc;
-import inf101.v18.sem2.Rules;
+import inf101.v18.sem2.game.objects.Disc;
+import inf101.v18.sem2.game.Rules;
 import inf101.v18.sem2.datastructures.IBoard;
 import inf101.v18.sem2.generators.BoardGenerator;
 import inf101.v18.sem2.generators.DiscGenerator;

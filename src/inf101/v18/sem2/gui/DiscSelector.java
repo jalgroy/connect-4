@@ -1,6 +1,6 @@
 package inf101.v18.sem2.gui;
 
-import inf101.v18.sem2.Disc;
+import inf101.v18.sem2.game.objects.Disc;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

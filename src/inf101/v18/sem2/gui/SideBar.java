@@ -1,6 +1,6 @@
 package inf101.v18.sem2.gui;
 
-import inf101.v18.sem2.Game;
+import inf101.v18.sem2.game.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -11,7 +11,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-
+/**
+ * Sidebar for game. Displays information about the game and provides functions outside of normal gameplay.
+ */
 public class SideBar extends Group {
     private Game game;
     private double width;
@@ -32,9 +34,12 @@ public class SideBar extends Group {
         this.height = height;
         this.sidebarWidth = sidebarWidth;
         this.SF = scalingFactor;
-        generate();
+        initialize();
     }
 
+    /**
+     * Update sidebar information
+     */
     public void update(){
         switch (game.getState()){
             case PLAYING:
@@ -50,15 +55,24 @@ public class SideBar extends Group {
         game.getCurrentPlayer().getDisc().draw(canvas.getGraphicsContext2D(), .3*sidebarWidth,.3*height, .4*sidebarWidth, .4*sidebarWidth);
     }
 
+    /**
+     * @param eventHandler Event handler to be triggered when "Undo" is pressed
+     */
     public void setOnUndo(EventHandler<ActionEvent> eventHandler){
         btnUndo.setOnAction(eventHandler);
     }
 
+    /**
+     * @param eventHandler Event handler to be triggered when "New game" is pressed
+     */
     public void setOnNewGame(EventHandler<ActionEvent> eventHandler){
         btnNewGame.setOnAction(eventHandler);
     }
 
-    private void generate(){
+    /**
+     * Initialize sidebar
+     */
+    private void initialize(){
         double padding = .05*sidebarWidth;
         sideBar = new Rectangle(sidebarWidth - 2*padding, height - 2*padding);
         sideBar.setX(width-sidebarWidth+padding);

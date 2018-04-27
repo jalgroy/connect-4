@@ -1,4 +1,4 @@
-package inf101.v18.sem2;
+package inf101.v18.sem2.game.objects;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -12,7 +12,7 @@ public class FallingDisc {
     private boolean landed = false;
     private final double G = 98.1;
 
-    FallingDisc(Disc disc, int column, double x, double y, double targetY){
+    public FallingDisc(Disc disc, int column, double x, double y, double targetY){
         this.disc = disc;
         this.column = column;
         this.x = x;

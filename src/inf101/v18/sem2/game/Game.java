@@ -191,8 +191,8 @@ public class Game {
                 fallingDisc = null;
                 nextTurn(false);
             }
-            draw();
         }
+        draw();
     }
 
     /**
@@ -291,6 +291,13 @@ public class Game {
      */
     public IPlayer getCurrentPlayer(){
         return players.get(turn % 2);
+    }
+
+    /**
+     * @return Players
+     */
+    public List<IPlayer> getPlayers(){
+        return players;
     }
 
     /**

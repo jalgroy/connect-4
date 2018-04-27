@@ -6,9 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import static inf101.v18.sem2.gui.GUI.HEIGHT;
-import static inf101.v18.sem2.gui.GUI.SF;
-import static inf101.v18.sem2.gui.GUI.WIDTH;
+import static inf101.v18.sem2.gui.GuiUtil.HEIGHT;
+import static inf101.v18.sem2.gui.GuiUtil.SF;
+import static inf101.v18.sem2.gui.GuiUtil.WIDTH;
 
 public class TitleScene extends Scene {
     private Stage stage;
@@ -47,6 +47,6 @@ public class TitleScene extends Scene {
             stage.setScene(getPlayerScene);
         });
 
-        root.getChildren().addAll(GUI.getBackgroundImage(), GUI.getTitleImage(), btnMultiplayer, btnAI);
+        root.getChildren().addAll(GuiUtil.getBackgroundImage(), GuiUtil.getTitleImage(), btnMultiplayer, btnAI);
     }
 }

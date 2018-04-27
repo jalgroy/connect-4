@@ -7,10 +7,10 @@ import javafx.scene.image.ImageView;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GUI {
-    protected static final double SF = 1.5;
-    protected static final double WIDTH = 1550*SF;
-    protected static final double HEIGHT = 950*SF;
+public class GuiUtil {
+    static final double SF = 1.5;
+    static final double WIDTH = 1550*SF;
+    static final double HEIGHT = 950*SF;
 
     private static Map<Disc, Image> discImages = generateDiscImages();
 

@@ -14,11 +14,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-
-
-import static inf101.v18.sem2.gui.GUI.HEIGHT;
-import static inf101.v18.sem2.gui.GUI.SF;
-import static inf101.v18.sem2.gui.GUI.WIDTH;
+import static inf101.v18.sem2.gui.GuiUtil.HEIGHT;
+import static inf101.v18.sem2.gui.GuiUtil.SF;
+import static inf101.v18.sem2.gui.GuiUtil.WIDTH;
 
 public class GetPlayerScene extends Scene {
     private Stage stage;
@@ -40,7 +38,7 @@ public class GetPlayerScene extends Scene {
         nameInput = nameInput();
         discSelector = discSelector();
         errorText = errorText();
-        root.getChildren().addAll(GUI.getBackgroundImage(),GUI.getTitleImage(),
+        root.getChildren().addAll(GuiUtil.getBackgroundImage(), GuiUtil.getTitleImage(),
                 info(), btnSubmit(), errorText, nameInput, discSelector);
     }
 
@@ -120,7 +118,11 @@ public class GetPlayerScene extends Scene {
         Player p = new Player(nameInput.getText(), discSelector.getSelected());
         p.setName(nameInput.getCharacters().toString());
         if(!game.addPlayer(p)){
-            errorText.setText("Name or disc already taken.");
+            if(p.getName().equals(game.getPlayer(0).getName())){
+                errorText.setText("Name already taken.");
+            } else {
+                errorText.setText("Disc already taken");
+            }
             return;
         }
         if(nPlayer == 1){

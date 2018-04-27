@@ -1,7 +1,7 @@
 package inf101.v18.sem2.datastructures;
 
 /**
- * "Connect four"-like board. Acts as a grid, can only add elements to columns, each column behaves like a stack.
+ * "Connect four"-like board. Acts like a set of stacks, can only add elements to columns, each column behaves like a stack.
  * @param <T> Type to store on the board.
  */
 public interface IBoard<T> {

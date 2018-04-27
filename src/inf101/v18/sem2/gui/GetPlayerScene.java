@@ -6,7 +6,6 @@ import inf101.v18.sem2.player.HAL;
 import inf101.v18.sem2.player.Player;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -18,6 +17,9 @@ import static inf101.v18.sem2.gui.GuiUtil.HEIGHT;
 import static inf101.v18.sem2.gui.GuiUtil.SF;
 import static inf101.v18.sem2.gui.GuiUtil.WIDTH;
 
+/**
+ * Scene for creating a player and adding it to the game.
+ */
 public class GetPlayerScene extends Scene {
     private Stage stage;
     private Game game;
@@ -42,6 +44,9 @@ public class GetPlayerScene extends Scene {
                 info(), btnSubmit(), errorText, nameInput, discSelector);
     }
 
+    /**
+     * @return Text placeholder for displaying errors
+     */
     private Text errorText(){
         Text errorText = new Text();
         errorText.setTextAlignment(TextAlignment.CENTER);
@@ -54,6 +59,9 @@ public class GetPlayerScene extends Scene {
         return errorText;
     }
 
+    /**
+     * @return Text for information to the user
+     */
     private Text info(){
         Text info = new Text("Player " + nPlayer);
         info.setTextAlignment(TextAlignment.CENTER);
@@ -66,6 +74,9 @@ public class GetPlayerScene extends Scene {
         return info;
     }
 
+    /**
+     * @return Input field for player name
+     */
     private TextField nameInput(){
         TextField name = new TextField();
         name.setPromptText("Enter player name");
@@ -77,26 +88,23 @@ public class GetPlayerScene extends Scene {
         return name;
     }
 
+    /**
+     * @return Object for selecting a disc
+     */
     private DiscSelector discSelector(){
         double dWidth = .8*WIDTH;
         double dHeight = .2*HEIGHT;
         DiscSelector ds = new DiscSelector(dWidth, dHeight, Disc.nonReservedValues());
         ds.setLayoutX(.1*WIDTH);
         ds.setLayoutY(.5*HEIGHT);
-        GraphicsContext context = ds.getGraphicsContext2D();
-        ds.draw(context, dWidth, dHeight);
-        ds.setOnMousePressed(e -> {
-            double x = e.getX();
-            int nDiscs = Disc.nonReservedValues().length;
-            int i = (int)(x*nDiscs/dWidth);
-            ds.setSelected(i);
-            ds.draw(context, dWidth, dHeight);
-        });
         return ds;
     }
 
+    /**
+     * @return Button for submitting the created player
+     */
     private Button btnSubmit(){
-        Button btnSubmit = new Button("Submit");
+        Button btnSubmit = new Button("Create player");
         btnSubmit.setScaleX(1.5*SF);
         btnSubmit.setScaleY(1.5*SF);
         btnSubmit.setLayoutX(.45*WIDTH);
@@ -106,6 +114,9 @@ public class GetPlayerScene extends Scene {
         return btnSubmit;
     }
 
+    /**
+     * Checks if player is valid, adds it to the game and moves to the next scene
+     */
     private void submit(){
         if(nameInput.getText().equals("")) {
             errorText.setText("Name cannot be empty!");

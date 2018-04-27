@@ -86,6 +86,10 @@ public class Rules {
         return false;
     }
 
+    /**
+     * @param board Board
+     * @return List of legal columns to drop in
+     */
     public static List<Integer> getLegalMoves(IBoard<Disc> board){
         List<Integer> moves = new ArrayList<>();
         for (int i = 0; i < board.getWidth(); i++) {

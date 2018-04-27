@@ -10,6 +10,9 @@ import static inf101.v18.sem2.gui.GuiUtil.HEIGHT;
 import static inf101.v18.sem2.gui.GuiUtil.SF;
 import static inf101.v18.sem2.gui.GuiUtil.WIDTH;
 
+/**
+ * Scene for title screen. Allows user to select type of game.
+ */
 public class TitleScene extends Scene {
     private Stage stage;
     private Game game;
@@ -22,6 +25,9 @@ public class TitleScene extends Scene {
         root.getChildren().addAll(GuiUtil.getBackgroundImage(), GuiUtil.getTitleImage(), btnMultiplayer(), btnAI());
     }
 
+    /**
+     * @return Button for starting a local multiplayer game
+     */
     private Button btnMultiplayer(){
         Button button = new Button("Start 2-player game");
         button.setScaleX(1.5*SF);
@@ -36,6 +42,9 @@ public class TitleScene extends Scene {
         return button;
     }
 
+    /**
+     * @return Button for starting a game vs an AI
+     */
     private Button btnAI(){
         Button button = new Button("Start game vs HAL 9000");
         button.setScaleX(1.5*SF);

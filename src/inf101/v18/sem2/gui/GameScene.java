@@ -18,9 +18,11 @@ import static inf101.v18.sem2.gui.GuiUtil.HEIGHT;
 import static inf101.v18.sem2.gui.GuiUtil.SF;
 import static inf101.v18.sem2.gui.GuiUtil.WIDTH;
 
+/**
+ * Scene for playing the game
+ */
 public class GameScene extends Scene {
     private Stage stage;
-    private Group root;
     private Game game;
     private AnimationTimer animationTimer;
     private double gameWidth = WIDTH - 500*SF;
@@ -33,7 +35,6 @@ public class GameScene extends Scene {
     public GameScene(Stage stage, Group root, Game game){
         super(root, WIDTH, HEIGHT);
         this.stage = stage;
-        this.root = root;
         this.game = game;
 
         sideBar = sideBar();
@@ -47,6 +48,9 @@ public class GameScene extends Scene {
         root.getChildren().addAll(numbers);
     }
 
+    /**
+     * @return Sidebar with game information and utility buttons
+     */
     private SideBar sideBar(){
         SideBar sideBar = new SideBar(game, WIDTH, HEIGHT, WIDTH-gameWidth, SF);
         sideBar.setOnUndo(actionEvent -> game.undo());
@@ -59,6 +63,10 @@ public class GameScene extends Scene {
         return sideBar;
     }
 
+    /**
+     * Creates canvas for drawing the actual game, and adds it to the game object
+     * @return Canvas for drawing game
+     */
     private Canvas gameCanvas(){
         Canvas gameCanvas = new Canvas(gameWidth,gameHeight);
         gameCanvas.setLayoutY(HEIGHT - gameHeight);
@@ -78,6 +86,9 @@ public class GameScene extends Scene {
         return gameCanvas;
     }
 
+    /**
+     * @return Numbers for identifying columns in the game
+     */
     private List<Text> numbers(){
         List<Text> nums = new ArrayList<>();
         int cl = game.getColumns();
@@ -94,6 +105,10 @@ public class GameScene extends Scene {
         return nums;
     }
 
+    /**
+     * Sets up an animation timer that runs 60 times a second,
+     * drawing the current state and updating the game.
+     */
     private void setAnimationTimer(){
         animationTimer = new AnimationTimer() {
             private long lastUpdate = 0;
@@ -109,6 +124,9 @@ public class GameScene extends Scene {
         animationTimer.start();
     }
 
+    /**
+     * Sets handlers for key presses and mouse clicks
+     */
     private void setEventHandlers(){
         setOnKeyPressed(e -> {
             game.keyPressed(e.getCode());

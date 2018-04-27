@@ -2,6 +2,9 @@ package inf101.v18.sem2.game.objects;
 
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * Object for keeping track of a Disc while it's falling
+ */
 public class FallingDisc {
     private Disc disc;
     private int column;
@@ -20,6 +23,9 @@ public class FallingDisc {
         this.targetY = targetY;
     }
 
+    /**
+     * Update Disc location, detect landing
+     */
     public void step(){
         if(!landed){
             dy += G / 60; // Because step() is called 60 times a sec (I don't know physics)
@@ -31,18 +37,33 @@ public class FallingDisc {
         }
     }
 
+    /**
+     * Draw disc
+     * @param context Graphics context
+     * @param width Disc width
+     * @param height Disc height
+     */
     public void draw(GraphicsContext context, double width, double height){
         disc.draw(context, x, y, width, height);
     }
 
+    /**
+     * @return True if disc has landed
+     */
     public boolean hasLanded(){
         return landed;
     }
 
+    /**
+     * @return Disc
+     */
     public Disc getDisc() {
         return disc;
     }
 
+    /**
+     * @return Column disc is falling in
+     */
     public int getColumn() {
         return column;
     }

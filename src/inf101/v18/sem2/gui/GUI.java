@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GUI {
-    public static final double SF = 1.5;
-    public static final double WIDTH = 1550*SF;
-    public static final double HEIGHT = 950*SF;
+    protected static final double SF = 1.5;
+    protected static final double WIDTH = 1550*SF;
+    protected static final double HEIGHT = 950*SF;
 
     private static Map<Disc, Image> discImages = generateDiscImages();
 

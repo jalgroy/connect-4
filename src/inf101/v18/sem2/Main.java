@@ -18,7 +18,7 @@ public class Main extends Application {
         TitleScene titleScene = new TitleScene(primaryStage, new Group(), game);
 
         primaryStage.setScene(titleScene);
-        primaryStage.setTitle("Connect Four");
+        primaryStage.setTitle(game.getTitle());
         primaryStage.show();
     }
 }

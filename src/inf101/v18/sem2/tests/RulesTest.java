@@ -9,14 +9,19 @@ import inf101.v18.sem2.generators.DiscGenerator;
 import inf101.v18.sem2.generators.IGenerator;
 import org.junit.jupiter.api.Test;
 
+import javax.print.attribute.standard.RequestingUserName;
+
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RulesTest {
     private IGenerator<Disc> discGen = new DiscGenerator();
     private IGenerator<Board> boardGen = new BoardGenerator<>(10,10, discGen);
     private final int N = 1000;
+    private Random random = new Random();
 
-    // Known sets of moves that leads to a win in a 2-player connect four game
+    // Known sets of moves that leads to a win
     private int[][] winningGames = {
             {1, 2, 1, 2, 1, 2, 1},
             {0, 1, 1, 2, 2, 3, 2, 3, 3, 4, 3},
@@ -58,7 +63,7 @@ public class RulesTest {
     }
 
     @Test
-    void isWinTest1(){
+    void isWinTest(){
         // Get two random, but different discs
         Disc d1 = discGen.generate();
         Disc d2 = discGen.generate();
@@ -73,6 +78,21 @@ public class RulesTest {
                 board.add(game[i], i % 2 == 0 ? d1 : d2);
             }
             assertTrue(Rules.isWin(board, game[game.length-1]));
+        }
+    }
+    
+    @Test
+    void getRowTest(){
+        for (int i = 0; i < N; i++) {
+            Board<Disc> board = new Board<>(random.nextInt(100)+1, random.nextInt(100)+1);
+            Disc disc = discGen.generate();
+            for (int x = 0; x < board.getWidth(); x++) {
+                int discs = random.nextInt(board.getHeight());
+                for (int j = 0; j < discs; j++) {
+                    board.add(x, disc);
+                }
+                assertEquals(board.getHeight()-discs-1, Rules.getRow(board, x));
+            }
         }
     }
 }

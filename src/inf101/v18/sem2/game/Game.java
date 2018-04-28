@@ -25,6 +25,7 @@ public class Game {
     private int turn;
     private final int columns = 7;
     private final int rows = 6;
+    private String title = "Connect Four";
     private List<Integer> history;
     private GraphicsContext context;
     private double width;
@@ -341,5 +342,12 @@ public class Game {
      */
     public double getHeight() {
         return height;
+    }
+
+    /**
+     * @return Game title
+     */
+    public String getTitle(){
+        return title;
     }
 }

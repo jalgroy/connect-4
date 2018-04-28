@@ -28,7 +28,7 @@ public class FallingDisc {
      */
     public void step(){
         if(!landed){
-            dy += G / 60; // Because step() is called 60 times a sec (I don't know physics)
+            dy += G / 60; // Because step() is called 60 times a sec
             y += dy;
             if(y >= targetY){
                 y = targetY;

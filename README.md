@@ -122,7 +122,8 @@ Jeg har ikke prioritert å skrive om disse metodene når de fungerer fint til de
 
 Spillet bruker en del prosessorkraft til å tegne spillet 60 ganger i sekundet. Dette kan nok effektiviseres, f.eks. ved at bare elementer som har endret seg tegnes på nytt.
 Jeg implementerte animasjonen såpass sent at det ikke var enkelt å bare tegne de oppdaterte tingene, og jeg må i stedet tegne alt på nytt i hver syklus.
-Hvis jeg hadde passet på dette fra begynnelsen av ville det vært enklere å gjøre applikasjonen mer effektiv.
+Hvis jeg hadde passet på dette fra begynnelsen av ville det vært enklere å gjøre applikasjonen mer effektiv. 
+_(Edit: ser ut som dette ikke er så galt som det var tidligere, mulig jeg har gjort en endring som har forbedret dette)_
 
 ## Testing
 

@@ -4,6 +4,7 @@ import inf101.v18.sem2.game.Game;
 import inf101.v18.sem2.gui.TitleScene;
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -15,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Game game = new Game();
 
-        TitleScene titleScene = new TitleScene(primaryStage, new Group(), game);
+        Scene titleScene = new TitleScene(primaryStage, new Group(), game);
 
         primaryStage.setScene(titleScene);
         primaryStage.setTitle(game.getTitle());

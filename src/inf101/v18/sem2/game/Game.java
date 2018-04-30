@@ -117,9 +117,9 @@ public class Game {
     }
 
     /**
-     * Drop disc in
-     * @param column
-     * @param simulation
+     * Drop disc in column
+     * @param column Column to drop disc in
+     * @param simulation Is this a simulation
      */
     public void drop(int column, boolean simulation) throws IllegalArgumentException {
         if(column < 0 || column >= columns){
@@ -141,6 +141,10 @@ public class Game {
         }
     }
 
+    /**
+     * Trigger next turn
+     * @param simulation Is this part of a simulation
+     */
     private void nextTurn(boolean simulation){
         if(Rules.isWin(board, history.get(history.size()-1))){
             gameState = GameState.WIN;

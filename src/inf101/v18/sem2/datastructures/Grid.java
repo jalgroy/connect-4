@@ -55,7 +55,6 @@ public class Grid<T> implements IGrid<T> {
 
     @Override
     public int hashCode() {
-
         int result = Objects.hash(width, height);
         result = 31 * result + Arrays.hashCode(arr);
         return result;

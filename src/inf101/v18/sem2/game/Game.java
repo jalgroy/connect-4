@@ -19,13 +19,14 @@ import java.util.List;
  * Connect four game
  */
 public class Game {
+    private final int columns = 7;
+    private final int rows = 6;
+    private final String title = "Connect Four";
+
     private GameState gameState;
     private IBoard<Disc> board;
     private List<IPlayer> players;
     private int turn;
-    private final int columns = 7;
-    private final int rows = 6;
-    private String title = "Connect Four";
     private List<Integer> history;
     private GraphicsContext context;
     private double width;

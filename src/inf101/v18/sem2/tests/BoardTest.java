@@ -16,6 +16,18 @@ public class BoardTest {
     private final int N = 10000;
 
     @Test
+    void addTest(){
+        for (int i = 0; i < N; i++) {
+            Board<Disc> board = boardGen.generate();
+            Disc disc = discGen.generate();
+            for (int j = 0; j < board.getWidth(); j++) {
+                // If move is legal, board.add() should return true
+                assertEquals(Rules.isLegalMove(board, j), board.add(j, disc));
+            }
+        }
+    }
+
+    @Test
     void addGetTest(){
         for (int i = 0; i < N; i++) {
             Board<Disc> board = boardGen.generate();

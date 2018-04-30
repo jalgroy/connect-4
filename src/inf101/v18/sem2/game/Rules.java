@@ -98,6 +98,14 @@ public class Rules {
         return moves;
     }
 
+    /**
+     * NOT IMPLEMENTED
+     *
+     * Get's the location of the 4 winning discs.
+     * @param board  Board
+     * @param lastMove Winning move
+     * @return {x1, y1, x2, y2} where (x1,y1) is one end and (x2,y2) is the other.
+     */
     public static int[] getWinLocation(IBoard<Disc> board, int lastMove){
         if(!isWin(board, lastMove)){
             throw new IllegalStateException("Game is not won");
@@ -106,6 +114,13 @@ public class Rules {
         return null;
     }
 
+    /**
+     * Count how many neighbours of the same type a disc has
+     * @param board
+     * @param x
+     * @param y
+     * @return Number of neighbours
+     */
     public static int countNeighbours(IBoard<Disc> board, int x, int y){
         int count = 0;
         Disc disc = board.get(x,y);

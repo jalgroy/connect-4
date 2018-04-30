@@ -19,15 +19,15 @@ Dette prosjektet inneholder [Semesteroppgave 2](SEM-2.md). Du kan også [lese op
    
 # Fyll inn egne svar/beskrivelse/kommentarer til prosjektet under
 * Levert av:  Joakim Algrøy (jal043)
-* [ ] hele semesteroppgaven er ferdig og klar til retting!
+* [x] hele semesteroppgaven er ferdig og klar til retting!
 * Code review:
    * [ ] jeg har fått tilbakemelding underveis fra @brukernavn, ...
    * [ ] jeg har gitt tilbakemelding underveis til @brukernavn, ...
 * Sjekkliste:
    * [x] Kjørbart Fire på Rad-spill
-   * [ ] Forklart designvalg, hvordan koden er organisert, abstraksjon, og andre ting 
-   * [ ] Tester
-   * [ ] Dokumentasjon (JavaDoc, kommentarer, diagrammer, README, etc.)
+   * [x] Forklart designvalg, hvordan koden er organisert, abstraksjon, og andre ting 
+   * [x] Tester
+   * [x] Dokumentasjon (JavaDoc, kommentarer, diagrammer, README, etc.)
    * [x] Fornuftige navn på klasser, interfaces, metoder og variabler
    * [x] Fornuftige abstraksjoner og innkapsling (bruk av klasser, interface, metoder, etc.)
 

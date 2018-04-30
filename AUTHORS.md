@@ -1,3 +1,3 @@
 # Authors
 
-* *YOU*
+* Joakim Algrøy (jal043@uib.no)

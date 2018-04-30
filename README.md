@@ -57,7 +57,7 @@ Jeg har tegnet et tilstandsdiagram for å vise flyten mellom de tre visningene:
 `GameScene` har en `AnimationTimer` som oppdaterer spillet 60 ganger i sekundet. Dette la jeg til for å kunne animere at brikke faller. `AnimationTimer` forenklet også litt ved at event-handlers ikke trenger å tegne brettet på nytt. Jeg fikk idèen til å bruke `AnimationTimer` fra lab 1, og så også på hvordan de fallende ballene var implementert i lab 1.
 
 Jeg har en hjelpe-klasse [GuiUtil](src/inf101/v18/gui/GuiUtil.java) som har statiske konstanter og metoder relatert til grafikk, som jeg ikke følte hørte hjemme i andre klasser.
-Min laptop har høyoppløselig skjerm (13" med 3200x1800), så jeg la til en skaleringsfaktor `GuiUtil.SF` som ganges med alle dimensjoner for grafiske objekter. For 1080p kan denne settes til 1. Det finnes nok bedre måter å gjøre dette på, men jeg har ikke brukt så mye grafikk før og dette var en enkel løsning.
+Min laptop har høyoppløselig skjerm (13" med 3200x1800), så jeg la til en skaleringsfaktor `GuiUtil.SF` som ganges med alle dimensjoner for grafiske objekter. For 1080p kan denne settes til f.eks. 0.8. Det finnes nok bedre måter å gjøre dette på, men jeg har ikke brukt så mye grafikk før og dette var en enkel løsning.
 
 ### Game
 

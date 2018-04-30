@@ -11,8 +11,8 @@ import java.util.Map;
  * Utility class for things relating to graphics
  */
 public class GuiUtil {
-    // Scaling factor (1 is ok for 1080p)
-    static final double SF = 1.5;
+    // Scaling factor (.8 is ok for 1080p)
+    static final double SF = .8;
     // Window width and height in pixels
     static final double WIDTH = 1550*SF;
     static final double HEIGHT = 950*SF;

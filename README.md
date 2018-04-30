@@ -44,7 +44,7 @@ Jeg har forsøkt å skrive et oversiktlig program med abstraksjon der det er hen
 * Velg 2-player eller å spille mot AI, velg så navn og brikker. Man kan legge brikker ved å klikke på en kolonne eller bruke 1-7 på tastaturet.
 
 ## Designvalg
-*(hvordan du har valgt å løse oppgaven)*
+
 ### GUI
 
 Grafikken er implementert med JavaFX.
@@ -126,12 +126,23 @@ Hvis jeg hadde passet på dette fra begynnelsen av ville det vært enklere å gj
 
 ## Testing
 
+Jeg har tre testklasser, [BoardTest](src/inf101/v18/sem2/tests/BoardTest.java), [GridTest](src/inf101/v18/sem2/tests/GridTest.java), og [RulesTest](src/inf101/v18/sem2/tests/RulesTest.java).
+Jeg tester at datastrukturene oppfører seg som de skal, og at reglene i Rules fungerer. For å hjelpe med testingen har jeg også implementert generatorer for `Disc`, `Grid` og `Board` i `inf101.v18.sem2.generators`. Disse implementerer `IGenerator` som jeg har lånt fra lab 5.
 
 ## Funksjonalitet, bugs
-*(hva virker / virker ikke)*
+
+Jeg har beskrevet det meste av funksjonaliteten over. Et par ting jeg ønsket å implementere:
+
+* Markere hvor man har fått fire på rad når noen vinner. Jeg har lagt til en metode for dette i `Rules`, men har ikke implementert det enda.
+* Flere AI, med ulike måter å finne trekk på, og så la brukeren velge hvilken AI man skal spille mot. Vil være relativt enkelt å implementere slik jeg har strukturert programmet (legge til en `SelectAI` scene).
+
+Håper ikke det er noen store bugs. Jeg tror jeg har fått fikset det meste som dukket opp underveis.
+
 
 ## Evt. erfaring fra code review
-*(lærte du noe av å gå gjennom din eller andres kode?)*
+
+Jeg har ikke fått gjennomført code review.
 
 ## Annet
-*(er det noe du ville gjort annerledes?)*
+
+Gøy oppgave!
